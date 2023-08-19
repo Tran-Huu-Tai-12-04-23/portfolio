@@ -5,6 +5,8 @@ import SectionHeading from '@/components/section-heading';
 import { skillsData } from '@/lib/data';
 import { motion } from 'framer-motion';
 import { MdArrowForwardIos } from 'react-icons/md';
+import Image from 'next/image';
+
 const fadeInAnimationVariants = {
     initial: {
         opacity: 0,
@@ -68,11 +70,13 @@ export default function Skills() {
                         }}
                         custom={index}
                     >
-                        <img
+                        <Image
                             src={skill.img}
                             alt={skill.name}
+                            width={200}
+                            height={200}
                             className="rounded-full h-40 bg-contain w-40 border-solid border-[2px] border-purple-700"
-                        ></img>
+                        ></Image>
                         <span className="capitalize">{skill.name}</span>
                     </motion.li>
                 ))}
@@ -99,11 +103,13 @@ export default function Skills() {
                         }}
                         custom={index}
                     >
-                        <img
+                        <Image
                             src={skill.img}
                             alt={skill.name}
+                            width={200}
+                            height={200}
                             className="rounded-full h-40 bg-contain w-40 border-solid border-[2px] border-purple-700"
-                        ></img>
+                        ></Image>
                         <span className="capitalize">{skill.name}</span>
                     </motion.li>
                 ))}
@@ -131,11 +137,13 @@ export default function Skills() {
                         }}
                         custom={index}
                     >
-                        <img
+                        <Image
                             src={skill.img}
                             alt={skill.name}
+                            width={200}
+                            height={200}
                             className="rounded-full h-40 bg-contain w-40 border-solid border-[2px] border-purple-700"
-                        ></img>
+                        ></Image>
                         <span className="capitalize">{skill.name}</span>
                     </motion.li>
                 ))}

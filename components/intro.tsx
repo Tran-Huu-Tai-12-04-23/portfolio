@@ -8,6 +8,7 @@ import { HiDownload } from 'react-icons/hi';
 import { FaGithubSquare, FaYoutube, FaFacebook, FaTiktok } from 'react-icons/fa';
 
 import { personal } from '@/data';
+import Image from 'next/image';
 
 export default function Intro() {
     return (
@@ -22,11 +23,11 @@ export default function Intro() {
                             duration: 0.6,
                         }}
                     >
-                        <img
+                        <Image
                             src={personal.avatar}
                             alt={personal.name}
-                            width="300"
-                            height="400"
+                            width={300}
+                            height={400}
                             className=" h-24 w-24 rounded-full object-cover border-[0.35rem] border-purple-500 shadow-xl"
                         />
                     </motion.div>

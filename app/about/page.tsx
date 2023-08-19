@@ -4,6 +4,7 @@ import React from 'react';
 import SectionHeading from '@/components/section-heading';
 import { motion } from 'framer-motion';
 import { about } from '@/data';
+import Image from 'next/image';
 
 export default function About() {
     return (
@@ -20,7 +21,13 @@ export default function About() {
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, delay: 0.3 }}
                 >
-                    <img src={about.about_image} alt={about.tag} className="rounded-lg w-full h-full "></img>
+                    <Image
+                        src={about.about_image}
+                        alt={about.tag}
+                        className="rounded-lg w-full h-full "
+                        width={200}
+                        height={200}
+                    ></Image>
                 </motion.div>
                 <div className="w-2/3 p-4 relative">
                     <div className="rotate-90 transition-all flex justify-between items-center absolute w-max top-1/2 -left-[10rem] -translate-y-1/2">
