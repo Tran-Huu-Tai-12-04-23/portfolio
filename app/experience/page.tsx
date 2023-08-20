@@ -1,10 +1,10 @@
 'use client';
 
 import React, { Fragment } from 'react';
-import SectionHeading from '@/components/section-heading';
+import SectionHeading from '@/components/Section-heading';
 import { VerticalTimeline, VerticalTimelineElement } from 'react-vertical-timeline-component';
 import 'react-vertical-timeline-component/style.min.css';
-import { experiencesData } from '@/lib/data';
+import { experiencesData } from '@/lib/data/data';
 import { useTheme } from '@/context/theme-context';
 import { motion } from 'framer-motion';
 
@@ -40,7 +40,7 @@ export default function Experience() {
                                             : '0.4rem solid rgba(255, 255, 255, 0.5)',
                                 }}
                                 date={item?.date}
-                                // icon={item?.icon}
+                                icon={item?.icon || null}
                                 iconStyle={{
                                     background: theme === 'light' ? 'white' : 'rgba(255, 255, 255, 0.15)',
                                     fontSize: '1.5rem',

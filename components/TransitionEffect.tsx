@@ -1,13 +1,23 @@
 'use client';
 import { motion, AnimatePresence } from 'framer-motion';
 import { usePathname } from 'next/navigation';
-import Layout from './layout';
+import Layout from './Layout';
+import ThemeSwitch from './Theme-switch';
+import CursorCustom from './CursorCustom';
 
 function TransitionEffect({ children }: { children: React.ReactNode }) {
     const pathName = usePathname();
     return (
         <AnimatePresence mode="wait">
-            <Layout>{children}</Layout>
+            {pathName !== '/admin' && (
+                <Layout>
+                    <div className="bg-[#dbd7fb] absolute top-[-1rem] -z-10 left-[-35rem] h-[31.25rem] w-[50rem] rounded-full blur-[30rem] sm:w-[68.75rem] md:left-[-33rem] lg:left-[-28rem] xl:left-[-15rem] 2xl:left-[-5rem] dark:bg-[#676394]"></div>
+                    {children}
+                    <ThemeSwitch />
+                    <CursorCustom />
+                </Layout>
+            )}
+            {pathName === '/admin' && children}
             <motion.div className="z-30" key={pathName} initial={{ opacity: 1 }} animate={{ opacity: 1 }}>
                 <motion.div
                     className="w-screen fixed top-0 bottom-0 h-screen bg-gradient-to-r dark:from-[#0f0f16] dark:via-[#1d1c2a] dark:to-[#222030] from-[#e5dbf4] via-[#e7e3f7] to-[#eeecfb] right-full z-30"

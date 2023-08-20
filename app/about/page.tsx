@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import SectionHeading from '@/components/section-heading';
+import SectionHeading from '@/components/Section-heading';
 import { motion } from 'framer-motion';
 import { about } from '@/data';
 import Image from 'next/image';
@@ -16,7 +16,7 @@ export default function About() {
         >
             <div className="flex justify-start flex-shrink-0 p-4 w-full">
                 <motion.div
-                    className="h-[25rem] relative w-1/3"
+                    className="h-[25rem] relative w-1/3 min-w-[20rem] "
                     initial={{ opacity: 0, y: 100 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ duration: 0.6, delay: 0.3 }}
@@ -24,12 +24,12 @@ export default function About() {
                     <Image
                         src={about.about_image}
                         alt={about.tag}
-                        className="rounded-lg w-full h-full "
+                        className="rounded-lg w-full h-full min-w-[20rem] "
                         width={200}
                         height={200}
                     ></Image>
                 </motion.div>
-                <div className="w-2/3 p-4 relative">
+                <div className="w-2/3 min-w-[37rem] p-4 relative">
                     <div className="rotate-90 transition-all flex justify-between items-center absolute w-max top-1/2 -left-[10rem] -translate-y-1/2">
                         <div className="h-[2px] w-24 mb-8 mr-4 bg-[#413d7a]"></div>
                         <SectionHeading>About me</SectionHeading>

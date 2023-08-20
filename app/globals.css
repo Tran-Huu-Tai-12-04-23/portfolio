@@ -20,9 +20,6 @@
 html {
     --line-color: #e5e7eb;
 }
-body {
-    cursor: none;
-}
 
 html.dark {
     --line-color: rgba(255, 255, 255, 0.2);
