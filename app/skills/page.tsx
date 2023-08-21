@@ -2,7 +2,7 @@
 
 import React from 'react';
 import SectionHeading from '@/components/Section-heading';
-import { skillsData } from '@/app/lib/lib/data';
+import { skillsData } from '@/lib/data/data';
 import { motion } from 'framer-motion';
 import { MdArrowForwardIos } from 'react-icons/md';
 import Image from 'next/image';
