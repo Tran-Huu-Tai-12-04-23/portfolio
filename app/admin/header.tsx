@@ -2,7 +2,7 @@ import { motion } from 'framer-motion';
 import { AiOutlineMenu } from 'react-icons/ai';
 import { IoIosNotificationsOutline } from 'react-icons/io';
 import Image from 'next/image';
-import SectionHeading from '@/components/Section-heading';
+import SectionHeading from '@/components/section-heading';
 
 interface Props {
     activeSidebar: boolean;

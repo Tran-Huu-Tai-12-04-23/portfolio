@@ -1,10 +1,10 @@
 'use client';
 
 import React from 'react';
-import SectionHeading from '@/components/Section-heading';
+import SectionHeading from '@/components/section-heading';
 import { motion } from 'framer-motion';
 import { sendEmail } from '@/actions/sendEmail';
-import SubmitBtn from '@/components/Submit-btn';
+import SubmitBtn from '@/components/submit-btn';
 import toast from 'react-hot-toast';
 import NewContact from './newcontact';
 

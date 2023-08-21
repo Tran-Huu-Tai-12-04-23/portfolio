@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import SectionHeading from '@/components/Section-heading';
+import SectionHeading from '@/components/section-heading';
 import { skillsData } from '@/lib/data/data';
 import { motion } from 'framer-motion';
 import { MdArrowForwardIos } from 'react-icons/md';

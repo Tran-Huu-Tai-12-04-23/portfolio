@@ -1,7 +1,7 @@
 'use client';
 
 import React, { Fragment } from 'react';
-import SectionHeading from '@/components/Section-heading';
+import SectionHeading from '@/components/section-heading';
 import { VerticalTimeline, VerticalTimelineElement } from 'react-vertical-timeline-component';
 import 'react-vertical-timeline-component/style.min.css';
 import { experiencesData } from '@/lib/data/data';

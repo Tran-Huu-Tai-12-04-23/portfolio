@@ -1,9 +1,9 @@
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { useState } from 'react';
-import ButtonUploadFile from '@/components/UploadImage';
-import WaitLoadApi from '@/components/WaitLoadApi';
-import Button from '@/components/Button';
+import ButtonUploadFile from '@/components/uploadImage';
+import WaitLoadApi from '@/components/waitLoadApi';
+import Button from '@/components/button';
 import toast from 'react-hot-toast';
 import { HiOutlineComputerDesktop } from 'react-icons/hi2';
 import { GrAdd, GrFormClose } from 'react-icons/gr';

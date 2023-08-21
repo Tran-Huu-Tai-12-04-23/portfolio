@@ -1,9 +1,9 @@
 'use client';
 import { motion, AnimatePresence } from 'framer-motion';
 import { usePathname } from 'next/navigation';
-import Layout from './Layout';
-import ThemeSwitch from './Theme-switch';
-import CursorCustom from './CursorCustom';
+import Layout from './layout';
+import ThemeSwitch from './theme-switch';
+import CursorCustom from './cursorCustom';
 
 function TransitionEffect({ children }: { children: React.ReactNode }) {
     const pathName = usePathname();
