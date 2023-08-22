@@ -27,7 +27,7 @@ export default function Skills() {
         <motion.section
             initial={{ opacity: 0, y: 100 }}
             animate={{ opacity: 1, y: 0 }}
-            className=" w-full p-10 flex justify-start items-start flex-col scroll-mt-28 text-center sm:mb-40"
+            className=" w-full p-10 flex justify-start items-start flex-col scroll-mt-28 text-center mb-40 "
         >
             <motion.h1
                 className="text-3xl uppercase font-bold"
@@ -57,7 +57,7 @@ export default function Skills() {
             >
                 <h5 className="text-md border-b-[2px] border-solid border-[#4e4b74] font-bold">Back end</h5>
             </motion.div>
-            <ul className="flex flex-wrap justify-start gap-10  mt-5 text-lg text-gray-800">
+            <ul className="flex flex-wrap justify-start gap-10  mt-5 text-lg text-gray-800 ">
                 {skillsData.backEnd.map((skill, index) => (
                     <motion.li
                         className="bg-white borderBlack rounded-xl px-5 py-3 hover:brightness-125 dark:bg-white/10 dark:text-white/80"
@@ -124,7 +124,7 @@ export default function Skills() {
                 <h5 className="text-md border-b-[2px] border-solid border-[#4e4b74] font-bold">Other</h5>
             </motion.div>
 
-            <ul className="flex flex-wrap justify-start gap-10  mt-5 text-lg text-gray-800">
+            <ul className="flex flex-wrap justify-start gap-10  mt-5 text-lg text-gray-800 pb-10">
                 {skillsData.other.map((skill, index) => (
                     <motion.li
                         className="bg-white  borderBlack rounded-xl px-5 py-3 hover:brightness-125 dark:bg-white/10 dark:text-white/80"

@@ -67,29 +67,46 @@ export const experiencesData = [
         icon: React.createElement(BsPersonWorkspace),
         date: '2023 - present',
     },
+    {
+        title: 'Advanced skills ',
+        location: 'HCM city',
+        description:
+            'I am currently working on projects assigned by the university, as well as pursuing personal areas of interest. I am actively developing and expanding these projects. Looking ahead, I am eager to embrace new opportunities for learning and acquiring fresh knowledge.',
+        icon: null,
+        date: '2023 - present',
+    },
 ] as const;
 
 export const projectsData = [
     {
         title: 'CorpComment',
+        name: 'CorpComment',
         description:
             'I worked as a full-stack developer on this startup project for 2 years. Users can give public feedback to companies.',
-        tags: ['React', 'Next.js', 'MongoDB', 'Tailwind', 'Prisma'],
+        frameWorks: ['React', 'Next.js', 'MongoDB', 'Tailwind', 'Prisma'],
         imageUrl: corpcommentImg,
+        linkSource: 'https://source',
+        videoDemo: 'https://source',
     },
     {
         title: 'rmtDev',
+        name: 'rmtDev',
         description:
             'Job board for remote developer jobs. I was the front-end developer. It has features like filtering, sorting and pagination.',
-        tags: ['React', 'TypeScript', 'Next.js', 'Tailwind', 'Redux'],
+        frameWorks: ['React', 'TypeScript', 'Next.js', 'Tailwind', 'Redux'],
         imageUrl: rmtdevImg,
+        linkSource: 'https://source',
+        videoDemo: 'https://source',
     },
     {
         title: 'Word Analytics',
+        name: 'Word Analytics',
         description:
             'A public web app for quick analytics on text. It shows word count, character count and social media post limits.',
-        tags: ['React', 'Next.js', 'SQL', 'Tailwind', 'Framer'],
+        frameWorks: ['React', 'Next.js', 'SQL', 'Tailwind', 'Framer'],
         imageUrl: wordanalyticsImg,
+        linkSource: 'https://source',
+        videoDemo: 'https://source',
     },
 ] as const;
 

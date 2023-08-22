@@ -17,9 +17,9 @@ function AboutSetting() {
     const [address, setAddress] = useState<string>('');
     const [email, setEmail] = useState<string>('');
     const [age, setAge] = useState<number>(0);
-    const [development, setDevelopment] = useState<string>('');
     const [description, setDescription] = useState<string>('');
     const [aboutImg, setAboutImg] = useState<Array<any>>([{}]);
+    const [development, setDevelopment] = useState<string>('');
     const [listDevelopment, setListDevelopment] = useState<Array<string>>([]);
 
     const [waitSave, setWaitSave] = useState<boolean>(false);
@@ -74,7 +74,7 @@ function AboutSetting() {
                 className="hover:text-primary group text-3xl absolute top-16 right-16 cursor-pointer transition-all hover:scale-105"
             />
             <div className=" p-4 bg-gray-100 rounded-md shadow-lg w-full">
-                <h1 className="text-2xl font-bold font-mono">Edit data aboutSetting for portfolio</h1>
+                <h1 className="text-2xl font-bold font-mono">Edit data about setting for portfolio</h1>
 
                 <div className="mt-10 mb-10 w-full">
                     <div className="grid-cols-2 grid gap-6">

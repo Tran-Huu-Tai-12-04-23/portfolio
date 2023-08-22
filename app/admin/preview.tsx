@@ -23,11 +23,11 @@ const Preview: React.FC<Props> = ({ children, preview, setPreview }) => {
             variants={previews}
             initial={false} // Set this to false so that animation starts from current state
             animate={preview ? 'open' : 'closed'}
-            className=" fixed z-50 flex justify-center items-center top-0 left-0 bottom-0 right-0 bg-[rgba(0,0,0,0.5)]"
+            className=" fixed z-50 flex justify-center items-center  top-0 left-0 bottom-0 right-0 bg-[rgba(0,0,0,0.5)]"
         >
             <div
                 onClick={(e) => e.stopPropagation()}
-                className="relative rounded-lg p-4 h-[40rem] w-[90%] flex justify-center items-center  dark:bg-gray-950 dark:text-white"
+                className="relative rounded-lg p-4 h-[40rem] overflow-auto w-[90%] flex justify-center  dark:bg-gray-950 dark:text-white"
             >
                 <AiOutlineClose
                     onClick={() => setPreview(false)}

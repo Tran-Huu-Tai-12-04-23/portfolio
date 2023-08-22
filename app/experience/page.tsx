@@ -7,6 +7,7 @@ import 'react-vertical-timeline-component/style.min.css';
 import { experiencesData } from '@/lib/data/data';
 import { useTheme } from '@/context/theme-context';
 import { motion } from 'framer-motion';
+import { IoCodeWorkingOutline } from 'react-icons/io5';
 
 export default function Experience() {
     const { theme } = useTheme();
@@ -40,7 +41,7 @@ export default function Experience() {
                                             : '0.4rem solid rgba(255, 255, 255, 0.5)',
                                 }}
                                 date={item?.date}
-                                icon={item?.icon || null}
+                                icon={item?.icon || React.createElement(IoCodeWorkingOutline)}
                                 iconStyle={{
                                     background: theme === 'light' ? 'white' : 'rgba(255, 255, 255, 0.15)',
                                     fontSize: '1.5rem',
