@@ -1,10 +1,10 @@
-import ButtonUploadFile from '@/components/uploadImage';
+import ButtonUploadFile from '@/app/components/uploadImage';
 import { useState } from 'react';
 import Image from 'next/image';
 import { GrAdd } from 'react-icons/gr';
 import { IoIosClose } from 'react-icons/io';
 import { motion } from 'framer-motion';
-import Button from '@/components/button';
+import Button from '@/app/components/button';
 
 function FormAddProject() {
     const [name, setName] = useState<string>('');

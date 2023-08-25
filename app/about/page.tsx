@@ -1,7 +1,7 @@
 'use client';
 
 import React from 'react';
-import SectionHeading from '@/components/section-heading';
+import SectionHeading from '@/app/components/section-heading';
 import { motion } from 'framer-motion';
 import { about } from '@/data';
 import Image from 'next/image';

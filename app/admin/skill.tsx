@@ -1,14 +1,14 @@
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { useState } from 'react';
-import WaitLoadApi from '@/components/waitLoadApi';
+import WaitLoadApi from '@/app/components/waitLoadApi';
 import toast from 'react-hot-toast';
 import { HiOutlineComputerDesktop } from 'react-icons/hi2';
 import { GrAdd, GrFormClose } from 'react-icons/gr';
 import Preview from './preview';
 import Skills from '../skills/page';
-import Button from '@/components/button';
-import ButtonUploadFile from '@/components/uploadImage';
+import Button from '@/app/components/button';
+import ButtonUploadFile from '@/app/components/uploadImage';
 
 const fadeInAnimationVariants = {
     initial: {

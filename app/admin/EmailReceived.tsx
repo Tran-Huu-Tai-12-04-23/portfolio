@@ -1,8 +1,8 @@
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { useState } from 'react';
-import ButtonUploadFile from '@/components/uploadImage';
-import WaitLoadApi from '@/components/waitLoadApi';
+import ButtonUploadFile from '@/app/components/uploadImage';
+import WaitLoadApi from '@/app/components/waitLoadApi';
 import toast from 'react-hot-toast';
 
 function EmailReceived() {

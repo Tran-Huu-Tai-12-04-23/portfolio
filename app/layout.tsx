@@ -3,7 +3,7 @@ import { Inter } from 'next/font/google';
 import ActiveSectionContextProvider from '@/context/active-section-context';
 import ThemeContextProvider from '@/context/theme-context';
 import { Toaster } from 'react-hot-toast';
-import TransitionEffect from '@/components/transitionEffect';
+import TransitionEffect from '@/app/components/transitionEffect';
 
 const inter = Inter({ subsets: ['latin'] });
 

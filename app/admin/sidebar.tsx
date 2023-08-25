@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion';
-import SectionHeading from '@/components/section-heading';
+import SectionHeading from '@/app/components/section-heading';
 import { GoHome } from 'react-icons/go';
 import { SiMinutemailer } from 'react-icons/si';
 import { FiUser } from 'react-icons/fi';

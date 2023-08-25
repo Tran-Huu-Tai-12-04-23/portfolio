@@ -1,10 +1,10 @@
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { useState } from 'react';
-import ButtonUploadFile from '@/components/uploadImage';
-import WaitLoadApi from '@/components/waitLoadApi';
+import ButtonUploadFile from '@/app/components/uploadImage';
+import WaitLoadApi from '@/app/components/waitLoadApi';
 import toast from 'react-hot-toast';
-import Intro from '@/components/intro';
+import Intro from '@/app/components/intro';
 import Preview from './preview';
 import { HiOutlineComputerDesktop } from 'react-icons/hi2';
 

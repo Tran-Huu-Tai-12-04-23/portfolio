@@ -1,11 +1,11 @@
 import { motion } from 'framer-motion';
 import Image from 'next/image';
 import { useState } from 'react';
-import ButtonUploadFile from '@/components/uploadImage';
-import WaitLoadApi from '@/components/waitLoadApi';
+import ButtonUploadFile from '@/app/components/uploadImage';
+import WaitLoadApi from '@/app/components/waitLoadApi';
 import toast from 'react-hot-toast';
 import CardProject from './cardProject';
-import Button from '@/components/button';
+import Button from '@/app/components/button';
 import FormAddProject from './formAddProject';
 import { projectsData } from '@/lib/data/data';
 import Preview from './preview';

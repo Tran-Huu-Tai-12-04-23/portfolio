@@ -1,5 +1,5 @@
 import Image from 'next/image';
-import Button from '@/components/button';
+import Button from '@/app/components/button';
 import Link from 'next/link';
 interface Props {
     data: any;
