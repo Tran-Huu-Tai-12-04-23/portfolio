@@ -1,3 +1,4 @@
+import { AiOutlineMail } from 'react-icons/ai';
 function NewContact() {
     return (
         <div className=" h-screen w-screen">
@@ -63,20 +64,7 @@ function NewContact() {
                                 <h6 className="font-medium">+ 84376100548</h6>
                             </div>
                             <div className="mx-auto text-center">
-                                <svg
-                                    xmlns="http://www.w3.org/2000/svg"
-                                    fill="none"
-                                    viewBox="0 0 24 24"
-                                    strokeWidth="2"
-                                    stroke="currentColor"
-                                    className="mx-auto mb-6 h-8 w-8 text-primary dark:text-primary-400"
-                                >
-                                    <path
-                                        strokeLinecap="round"
-                                        strokeLinejoin="round"
-                                        d="M2 8l8 5 8-5M2 16l8 5 8-5M10 8l2 2 2-2M7 3v4m10-4v4"
-                                    />
-                                </svg>
+                                <AiOutlineMail className="text-primary text-5xl mb-2" />
 
                                 <h6 className="font-medium">Email: huutt201@gmail.com</h6>
                             </div>
