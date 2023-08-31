@@ -1,13 +1,13 @@
 import { motion } from 'framer-motion';
 import Header from './header';
 import DashBoard from './dashboard';
-import Intro from './intro';
+import IntroSetting from './intro';
 import AboutSetting from './about';
-import Contact from './contact';
-import EmailReceived from './emailReceived';
-import Experience from './experience';
-import Projects from './project';
-import Skill from './skill';
+import ContactSetting from './contact';
+import EmailReceivedSetting from './emailReceived';
+import ExperienceSetting from './experience';
+import ProjectsSetting from './project';
+import SkillSetting from './skill';
 interface Props {
     activeSidebar: boolean;
     setActiveSidebar: any;
@@ -26,13 +26,13 @@ function MainBoard({ activeSidebar, setActiveSidebar, order }: Props) {
         >
             <Header activeSidebar={activeSidebar} setActiveSidebar={setActiveSidebar}></Header>
             {order === 1 && <DashBoard></DashBoard>}
-            {order === 2 && <Intro></Intro>}
+            {order === 2 && <IntroSetting></IntroSetting>}
             {order === 3 && <AboutSetting></AboutSetting>}
-            {order === 4 && <Projects></Projects>}
-            {order === 5 && <Experience></Experience>}
-            {order === 6 && <Skill></Skill>}
-            {order === 7 && <Contact></Contact>}
-            {order === 8 && <EmailReceived></EmailReceived>}
+            {order === 4 && <ProjectsSetting></ProjectsSetting>}
+            {order === 5 && <ExperienceSetting></ExperienceSetting>}
+            {order === 6 && <SkillSetting></SkillSetting>}
+            {order === 7 && <ContactSetting></ContactSetting>}
+            {order === 8 && <EmailReceivedSetting></EmailReceivedSetting>}
         </motion.div>
     );
 }
