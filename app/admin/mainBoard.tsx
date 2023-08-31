@@ -1,13 +1,13 @@
 import { motion } from 'framer-motion';
-import Header from './header';
-import DashBoard from './dashboard';
-import IntroSetting from './intro';
-import AboutSetting from './about';
-import ContactSetting from './contact';
-import EmailReceivedSetting from './emailReceived';
-import ExperienceSetting from './experience';
-import ProjectsSetting from './project';
-import SkillSetting from './skill';
+import Header from '@/app/admin/header';
+import DashBoard from '@/app/admin/dashboard';
+import IntroSetting from '@/app/admin/intro';
+import AboutSetting from '@/app/admin/about';
+import ContactSetting from '@/app/admin/contact';
+import EmailReceivedSetting from '@/app/admin/emailReceived';
+import ExperienceSetting from '@/app/admin/experience';
+import ProjectsSetting from '@/app/admin/project';
+import SkillSetting from '@/app/admin/skill';
 interface Props {
     activeSidebar: boolean;
     setActiveSidebar: any;
