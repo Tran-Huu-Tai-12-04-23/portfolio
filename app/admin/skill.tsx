@@ -536,14 +536,7 @@ function SkillSetting() {
                 {waitSave && <WaitLoadApi />}
 
                 <Preview preview={preview} setPreview={setPreview}>
-                    <Skills
-                        type={'preview'}
-                        data={{
-                            backend: listBackEndSkill,
-                            frontEnd: listFrontEndSkill,
-                            other: listOtherSkill,
-                        }}
-                    ></Skills>
+                    <Skills></Skills>
                 </Preview>
             </div>
         </motion.div>

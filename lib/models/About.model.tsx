@@ -21,4 +21,5 @@ const AboutSchema: Schema = new Schema({
     aboutImageLink: { type: String, required: true },
 });
 
-export const AboutStore = (mongoose.models.About || model('About', AboutSchema)) as Model<IAbout>;
+// Named export instead of default export
+export const AboutModel = (mongoose.models.About || model<IAbout>('About', AboutSchema)) as Model<IAbout>;

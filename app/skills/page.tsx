@@ -29,7 +29,7 @@ interface Props {
     data: any;
 }
 
-export default function Skills({ type = 'default', data }: Props) {
+export default function Skills() {
     const [dataSkill, setDataSkill] = useState<any>(null);
     const [waitSave, setWaitSave] = useState<boolean>(false);
 

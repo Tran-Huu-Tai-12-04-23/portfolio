@@ -185,7 +185,7 @@ function ContactSetting() {
                     </button>
                 </div>
                 <Preview preview={preview} setPreview={setPreview}>
-                    <Contact data={{ email, phoneNumber, address, country }} type="preview"></Contact>
+                    <Contact></Contact>
                 </Preview>
             </div>
         </motion.div>

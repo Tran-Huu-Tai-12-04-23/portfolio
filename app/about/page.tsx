@@ -3,17 +3,11 @@
 import React, { useEffect, useState } from 'react';
 import SectionHeading from '@/app/components/section-heading';
 import { motion } from 'framer-motion';
-import { about } from '@/data';
 import Image from 'next/image';
 import Service from '@/service';
 import WaitLoadApi from '../components/waitLoadApi';
 
-interface Props {
-    data: any;
-    type: null | string;
-}
-
-export default function About({ data, type = 'default' }: Props) {
+export default function About() {
     const [aboutData, setAboutData] = useState<any>(null);
     const [waitApi, setWaitApi] = useState<boolean>(false);
 
@@ -32,7 +26,6 @@ export default function About({ data, type = 'default' }: Props) {
         getAboutData();
     }, []);
 
-    console.log(aboutData);
     return (
         <motion.section
             className=" max-w-[60rem] w-[60%] pt-10 rounded-lg text-center leading-8 mb-20"
@@ -49,7 +42,7 @@ export default function About({ data, type = 'default' }: Props) {
                     transition={{ duration: 0.6, delay: 0.3 }}
                 >
                     <Image
-                        src={type === 'preview' ? data.aboutImageLink : aboutData?.aboutImageLink}
+                        src={aboutData?.aboutImageLink}
                         alt={aboutData?.tag}
                         className="rounded-lg w-full h-full min-w-[20rem] "
                         width={200}
@@ -70,9 +63,7 @@ export default function About({ data, type = 'default' }: Props) {
                             transition={{ duration: 0.6, delay: 0.3 }}
                         >
                             <SectionHeading>My name is</SectionHeading>
-                            <h1 className="text-3xl ml-2 font-semibold italic text-purple-800">
-                                {type === 'preview' ? data.name : aboutData?.name}
-                            </h1>
+                            <h1 className="text-3xl ml-2 font-semibold italic text-purple-800">{aboutData?.name}</h1>
                         </motion.div>
 
                         <motion.div
@@ -86,16 +77,14 @@ export default function About({ data, type = 'default' }: Props) {
                                     <div className="rounded-full h-[10px] w-[10px] mr-2 bg-purple-950"></div>
                                     <li className="text-md font-bold flex justify-start mr-2">
                                         <span className="mr-2 text-[#757575]">Age</span>:{' '}
-                                        <span className="ml-2">{type === 'preview' ? data.age : aboutData?.age}</span>
+                                        <span className="ml-2">{aboutData?.age}</span>
                                     </li>
                                 </div>
                                 <div className="mt-2 flex justify-start items-center">
                                     <div className="rounded-full h-[10px] w-[10px] mr-2 bg-purple-950"></div>
                                     <li className="text-md font-bold flex justify-start mr-2">
                                         <span className="mr-2 text-[#757575]">Nationality</span>:
-                                        <span className="ml-2">
-                                            {type === 'preview' ? data.nation : aboutData?.nationality}
-                                        </span>
+                                        <span className="ml-2">{aboutData?.nationality}</span>
                                     </li>
                                 </div>
                             </ul>
@@ -104,18 +93,14 @@ export default function About({ data, type = 'default' }: Props) {
                                     <div className="rounded-full h-[10px] w-[10px] mr-2 bg-purple-950"></div>
                                     <li className="text-md font-bold flex justify-start mr-2">
                                         <span className="mr-2 text-[#757575]">Address</span> :{' '}
-                                        <span className="ml-2">
-                                            {type === 'preview' ? data.address : aboutData?.address}
-                                        </span>
+                                        <span className="ml-2">{aboutData?.address}</span>
                                     </li>
                                 </div>
                                 <div className="mt-2 flex justify-start items-center">
                                     <div className="rounded-full h-[10px] w-[10px] mr-2 bg-purple-950"></div>
                                     <li className="text-md font-bold flex justify-start mr-2">
                                         <span className="mr-2 text-[#757575]">Email</span> :{' '}
-                                        <span className="ml-2">
-                                            {type === 'preview' ? data.email : aboutData?.email}
-                                        </span>
+                                        <span className="ml-2">{aboutData?.email}</span>
                                     </li>
                                 </div>
                             </ul>
@@ -132,7 +117,7 @@ export default function About({ data, type = 'default' }: Props) {
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.6, delay: 0.6 }}
                         >
-                            {type === 'preview' ? data.description : aboutData?.description}
+                            {aboutData?.description}
                         </motion.p>
                     </div>
                 </div>

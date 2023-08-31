@@ -1,11 +1,11 @@
-import { AboutStore } from '@/lib/models/About.model';
+import { AboutModel } from '@/lib/models/About.model';
 
 class AboutController {
     constructor() {}
 
     async get() {
         try {
-            const data = await AboutStore.findOne();
+            const data = await AboutModel.findOne();
             return data;
         } catch (error) {
             console.error(error);
@@ -14,7 +14,7 @@ class AboutController {
     }
     async createNew(data: any) {
         try {
-            const newDoc = new AboutStore(data);
+            const newDoc = new AboutModel(data);
             return newDoc.save();
         } catch (error) {
             console.error(error);
@@ -24,7 +24,7 @@ class AboutController {
 
     async checkExists() {
         try {
-            const about = await AboutStore.find();
+            const about = await AboutModel.find();
             return about.length > 0;
         } catch (error) {
             console.error(error);
@@ -34,7 +34,7 @@ class AboutController {
 
     async update(data: any) {
         try {
-            const result = await AboutStore.updateOne({}, data, { new: true });
+            const result = await AboutModel.updateOne({}, data, { new: true });
             return result;
         } catch (error) {
             console.error(error);

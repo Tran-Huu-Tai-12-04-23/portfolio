@@ -277,18 +277,7 @@ function AboutSetting() {
                 {waitSave && <WaitLoadApi />}
 
                 <Preview preview={preview} setPreview={setPreview}>
-                    <About
-                        data={{
-                            name,
-                            age,
-                            email,
-                            description,
-                            nation,
-                            address,
-                            aboutImageLink: aboutImg[0]?.fileUrl,
-                        }}
-                        type="preview"
-                    ></About>
+                    <About></About>
                 </Preview>
             </div>
         </motion.div>
