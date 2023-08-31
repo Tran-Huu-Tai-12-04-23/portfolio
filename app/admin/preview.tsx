@@ -27,11 +27,11 @@ const Preview: React.FC<Props> = ({ children, preview, setPreview }) => {
         >
             <div
                 onClick={(e) => e.stopPropagation()}
-                className="relative rounded-lg p-4 h-[40rem] overflow-auto w-[90%] flex justify-center  dark:bg-gray-950 dark:text-white"
+                className="relative rounded-lg p-4 h-[40rem] overflow-auto w-[90%] flex justify-center  bg-gray-950 dark:text-white"
             >
                 <AiOutlineClose
                     onClick={() => setPreview(false)}
-                    className="absolute top-2 right-2 text-2xl hover:text-primary cursor-pointer hover:rotate-180 transition-all"
+                    className="absolute top-2 right-2 text-2xl duration-1000 hover:text-primary text-white  z-50 cursor-pointer hover:rotate-180 transition-all"
                 />
                 {children}
             </div>

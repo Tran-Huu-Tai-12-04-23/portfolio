@@ -1,20 +1,100 @@
 import { motion } from 'framer-motion';
 import Image from 'next/image';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import ButtonUploadFile from '@/app/components/uploadImage';
 import WaitLoadApi from '@/app/components/waitLoadApi';
 import toast from 'react-hot-toast';
 import Preview from './preview';
 import Experience from '../experience/page';
 import { HiOutlineComputerDesktop } from 'react-icons/hi2';
+import ExperienceCard from './experienceCard';
+import { experiencesData } from '@/lib/data/data';
+import Service from '@/service';
 
 function ExperienceSetting() {
     const [title, setTitle] = useState<string>('');
     const [description, setDescription] = useState<string>('');
     const [location, setLocation] = useState<string>('');
-    const [date, setDate] = useState<any>(null);
+    const [time, setTime] = useState<string>('');
     const [waitSave, setWaitSave] = useState<boolean>(false);
     const [preview, setPreview] = useState<boolean>(false);
+    const [listExperiences, setListExperiences] = useState<Array<object>>([]);
+
+    useEffect(() => {
+        const getProjects = async () => {
+            setWaitSave(true);
+            const result = await Service.getDataFromApi('/api/experience');
+            const data = result.data;
+            setWaitSave(false);
+            if (data.data) {
+                setListExperiences(JSON.parse(data.data));
+            }
+        };
+
+        getProjects();
+    }, []);
+
+    const checkDataEmpty = () => {
+        if (!title) {
+            return 'Please enter title!';
+        } else if (!location) {
+            return 'Please enter location!"';
+        } else if (!time) {
+            return 'Please enter time!';
+        } else if (!description) {
+            return 'Please enter description!';
+        }
+
+        return true;
+    };
+
+    const clear = () => {
+        setTitle('');
+        setDescription('');
+        setLocation('');
+        setTime('');
+    };
+    const handleCallApi = async () => {
+        const data = {
+            title,
+            description,
+            location,
+            time,
+        };
+
+        try {
+            const result = await Service.callApi('/api/experience', data);
+            const res = result.data;
+            if (res.status === 200) {
+                clear();
+                if (res.data) {
+                    setListExperiences((prev: any) => {
+                        return [...prev, JSON.parse(res.data)];
+                    });
+                }
+                return Promise.resolve(true);
+            } else {
+                return Promise.reject(false);
+            }
+        } catch (error) {
+            return Promise.reject(error);
+        }
+    };
+    const handleAddExperience = async () => {
+        const checkEmpty = checkDataEmpty();
+        if (checkEmpty !== true) {
+            toast(checkEmpty, {
+                icon: '⚠️',
+            });
+            return;
+        }
+
+        toast.promise(handleCallApi(), {
+            loading: 'Saving...',
+            success: <b>Add project successfully!</b>,
+            error: <b>Could not add.</b>,
+        });
+    };
 
     return (
         <motion.div
@@ -60,27 +140,25 @@ function ExperienceSetting() {
                             htmlFor="location_id"
                             className="peer-focus:font-medium absolute text-sm text-gray-500  duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-primary peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
                         >
-                            Enter name
+                            Enter location
                         </label>
                     </div>
-
-                    <div className="relative w-full">
-                        <div className="absolute inset-y-0 left-0 flex items-center pl-3.5 pointer-events-none">
-                            <svg
-                                className="w-4 h-4 mb-5 text-gray-500 dark:text-gray-400"
-                                aria-hidden="true"
-                                xmlns="http://www.w3.org/2000/svg"
-                                fill="currentColor"
-                                viewBox="0 0 20 20"
-                            >
-                                <path d="M20 4a2 2 0 0 0-2-2h-2V1a1 1 0 0 0-2 0v1h-3V1a1 1 0 0 0-2 0v1H6V1a1 1 0 0 0-2 0v1H2a2 2 0 0 0-2 2v2h20V4ZM0 18a2 2 0 0 0 2 2h16a2 2 0 0 0 2-2V8H0v10Zm5-8h10a1 1 0 0 1 0 2H5a1 1 0 0 1 0-2Z" />
-                            </svg>
-                        </div>
+                    <div className="relative z-0 w-full mb-6 group">
                         <input
-                            type="date"
-                            className="bg-gray-50 border border-gray-300 text-gray-900 text-sm rounded-lg focus:ring-primary focus:border-primary block w-full pl-10 p-2.5"
-                            placeholder="Select date"
+                            onChange={(e) => setTime(e.target.value)}
+                            value={time}
+                            type="text"
+                            name="time_id"
+                            id="time_id"
+                            className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none   focus:outline-none focus:ring-0 focus:border-primary peer"
+                            placeholder=" "
                         />
+                        <label
+                            htmlFor="time_id"
+                            className="peer-focus:font-medium absolute text-sm text-gray-500  duration-300 transform -translate-y-6 scale-75 top-3 -z-10 origin-[0] peer-focus:left-0 peer-focus:text-primary peer-placeholder-shown:scale-100 peer-placeholder-shown:translate-y-0 peer-focus:scale-75 peer-focus:-translate-y-6"
+                        >
+                            Enter time
+                        </label>
                     </div>
                 </div>
                 <div className="relative z-0 w-full mb-6 group  rounded-tl-xl rounded-tr-xl">
@@ -95,13 +173,25 @@ function ExperienceSetting() {
 
                 <button
                     type="submit"
-                    onClick={() => {}}
+                    onClick={handleAddExperience}
                     className=" text-white bg-primary hover:brightness-105 font-medium rounded-lg text-sm w-full sm:w-auto px-5 py-2.5 text-center "
                 >
                     Add
                 </button>
                 {waitSave && <WaitLoadApi />}
 
+                <div className="flex flex-wrap mt-10 border-dashed border-primary border-2 p-4 justify-start items-center gap-6">
+                    {listExperiences &&
+                        listExperiences.map((exp, index) => {
+                            return (
+                                <ExperienceCard
+                                    data={exp}
+                                    key={index}
+                                    setListExperiences={setListExperiences}
+                                ></ExperienceCard>
+                            );
+                        })}
+                </div>
                 <Preview preview={preview} setPreview={setPreview}>
                     <Experience></Experience>
                 </Preview>
@@ -110,6 +200,7 @@ function ExperienceSetting() {
                     className="hover:text-primary group text-3xl absolute top-8 right-8 cursor-pointer transition-all hover:scale-105"
                 />
             </div>
+            {waitSave && <WaitLoadApi />}
         </motion.div>
     );
 }

@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import Image from 'next/image';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import ButtonUploadFile from '@/app/components/uploadImage';
 import WaitLoadApi from '@/app/components/waitLoadApi';
 import Button from '@/app/components/button';
@@ -9,6 +9,7 @@ import { HiOutlineComputerDesktop } from 'react-icons/hi2';
 import { GrAdd, GrFormClose } from 'react-icons/gr';
 import Preview from './preview';
 import About from '../about/page';
+import Service from '@/service';
 
 function AboutSetting() {
     const [tag, setTag] = useState<string>('');
@@ -19,18 +20,10 @@ function AboutSetting() {
     const [age, setAge] = useState<number>(0);
     const [description, setDescription] = useState<string>('');
     const [aboutImg, setAboutImg] = useState<Array<any>>([{}]);
-    const [development, setDevelopment] = useState<string>('');
-    const [listDevelopment, setListDevelopment] = useState<Array<string>>([]);
 
     const [waitSave, setWaitSave] = useState<boolean>(false);
-    const [addDev, setAddDev] = useState<boolean>(false);
     const [preview, setPreview] = useState<boolean>(false);
-
-    const handleRemoveDevelopment = (indexR: number) => {
-        setListDevelopment((prev) => {
-            return prev.filter((dev, index) => index !== indexR);
-        });
-    };
+    const [dataAbout, setDataAbout] = useState<any>(null);
 
     const checkDataEmpty = () => {
         if (!name) {
@@ -50,6 +43,32 @@ function AboutSetting() {
         }
         return true;
     };
+    const handleCallApi = async () => {
+        const data = {
+            name,
+            age,
+            address,
+            nation,
+            description,
+            tag,
+            email,
+            aboutImageLink: aboutImg[0].fileUrl,
+        };
+
+        try {
+            const result = await Service.callApi('/api/about', data);
+            const res = result.data;
+
+            if (res.status === 200) {
+                return Promise.resolve(true);
+            } else {
+                return Promise.reject(false);
+            }
+        } catch (error) {
+            return Promise.reject(error);
+        }
+    };
+
     const handleSave = async () => {
         const checkEmpty = checkDataEmpty();
         if (checkEmpty !== true) {
@@ -57,7 +76,39 @@ function AboutSetting() {
                 icon: '⚠️',
             });
         }
+
+        toast.promise(handleCallApi(), {
+            loading: 'Saving...',
+            success: <b>Init about successfully!</b>,
+            error: <b>Could not save.</b>,
+        });
     };
+
+    useEffect(() => {
+        const getDataAbout = async () => {
+            setWaitSave(true);
+            const result = await Service.getDataFromApi('/api/about');
+            setWaitSave(false);
+            const data = result.data;
+            if (data.status === 200) {
+                setDataAbout(JSON.parse(data.data));
+            }
+        };
+
+        getDataAbout();
+    }, []);
+
+    useEffect(() => {
+        if (dataAbout) {
+            setName(dataAbout.name);
+            setAge(dataAbout.age);
+            setDescription(dataAbout.description);
+            setNation(dataAbout.nation);
+            setTag(dataAbout.tag);
+            setAddress(dataAbout.address);
+            setEmail(dataAbout.email);
+        }
+    }, [dataAbout]);
 
     return (
         <motion.div
@@ -194,75 +245,7 @@ function AboutSetting() {
                             placeholder="Description ..."
                         ></textarea>
                     </div>
-                    <div className="">
-                        <h1 className="text-sm mb-2 font-bold">Add development</h1>
-                        {listDevelopment.length > 0 && (
-                            <ul>
-                                {listDevelopment.map((dev, index) => {
-                                    return (
-                                        <li
-                                            key={index}
-                                            className="flex justify-start items-center text-primary text-sm font-bold list-none"
-                                        >
-                                            #{dev}
-                                            <GrFormClose
-                                                onClick={() => handleRemoveDevelopment(index)}
-                                                className="hover:scale-105 mr-4 text-2xl transition-all hover:text-red-500 cursor-pointer"
-                                            ></GrFormClose>
-                                        </li>
-                                    );
-                                })}
-                            </ul>
-                        )}
-                        {!addDev && (
-                            <div className="flex w-fit" onClick={() => setAddDev(!addDev)}>
-                                <GrAdd className="text-2xl hover:bg-[rgb(168,85,247,0.2)] rounded-lg hover:rotate-180 transition-all cursor-pointer duration-1000 hover:text-primary"></GrAdd>
-                            </div>
-                        )}
 
-                        {addDev && (
-                            <motion.div
-                                initial={{
-                                    opacity: 0,
-                                }}
-                                animate={{
-                                    opacity: 1,
-                                }}
-                                transition={{
-                                    duration: 0.5,
-                                }}
-                            >
-                                <input
-                                    onChange={(e) => setDevelopment(e.target.value)}
-                                    value={development}
-                                    type="text"
-                                    className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none   focus:outline-none focus:ring-0 focus:border-primary peer"
-                                    placeholder="Enter name development..."
-                                />
-                                <div className="flex justify-start mt-3 gap-5 items-center">
-                                    <Button
-                                        name={'Cancel'}
-                                        onClick={() => {
-                                            setAddDev(!addDev);
-                                        }}
-                                        type={'cancel'}
-                                    ></Button>
-                                    <Button
-                                        name={'Add'}
-                                        onClick={() => {
-                                            if (development) {
-                                                setListDevelopment((prev: any) => {
-                                                    return [...prev, development];
-                                                });
-                                                setDevelopment('');
-                                            }
-                                        }}
-                                        type={'opacity'}
-                                    ></Button>
-                                </div>
-                            </motion.div>
-                        )}
-                    </div>
                     <div className="mt-4">
                         <h1 className="text-sm font-bold mb-2">Add about img</h1>
                         <ButtonUploadFile
@@ -294,7 +277,18 @@ function AboutSetting() {
                 {waitSave && <WaitLoadApi />}
 
                 <Preview preview={preview} setPreview={setPreview}>
-                    <About></About>
+                    <About
+                        data={{
+                            name,
+                            age,
+                            email,
+                            description,
+                            nation,
+                            address,
+                            aboutImageLink: aboutImg[0]?.fileUrl,
+                        }}
+                        type="preview"
+                    ></About>
                 </Preview>
             </div>
         </motion.div>

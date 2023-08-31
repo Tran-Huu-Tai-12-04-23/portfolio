@@ -6,7 +6,7 @@ function Layout({ children }: { children: React.ReactNode }) {
         <>
             <Header />
             <main className="no-scrollbar w-full flex justify-center items-center">{children}</main>
-            <Footer></Footer>
+            {/* <Footer></Footer> */}
         </>
     );
 }

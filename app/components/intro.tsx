@@ -1,18 +1,44 @@
 'use client';
 
-import React from 'react';
+import React, { useState, useEffect } from 'react';
 import { motion } from 'framer-motion';
 import Link from 'next/link';
 import { BsArrowRight, BsLinkedin } from 'react-icons/bs';
 import { HiDownload } from 'react-icons/hi';
 import { FaGithubSquare, FaYoutube, FaFacebook, FaTiktok } from 'react-icons/fa';
-
+import Service from '@/service';
 import { personal } from '@/data';
 import Image from 'next/image';
+import WaitLoadApi from './waitLoadApi';
+interface Props {
+    type: null | string;
+    data: null | any;
+}
 
-export default function Intro() {
+export default function Intro({ type = 'default', data = {} }: Props) {
+    const [introData, setIntroData] = useState<any>(null);
+    const [waitApi, setWaitApi] = useState<boolean>(false);
+
+    useEffect(() => {
+        const getIntroData = async () => {
+            setWaitApi(true);
+            const result = await Service.getDataFromApi('/api/intro');
+            setWaitApi(false);
+
+            const data = result.data;
+
+            if (data.status === 200) {
+                setIntroData(JSON.parse(data.data));
+            }
+        };
+        getIntroData();
+    }, []);
+
+    console.log(introData);
+
     return (
         <section className="mb-20 max-w-[50rem] text-center sm:mb-0 scroll-mt-[10rem]">
+            {waitApi && <WaitLoadApi></WaitLoadApi>}
             <div className="flex items-center justify-center">
                 <div className="relative">
                     <motion.div
@@ -24,8 +50,8 @@ export default function Intro() {
                         }}
                     >
                         <Image
-                            src={personal.avatar}
-                            alt={personal.name}
+                            src={type === 'preview' ? data.avatar : introData?.avatar}
+                            alt={'huutai'}
                             width={300}
                             height={400}
                             className=" h-24 w-24 rounded-full object-cover border-[0.35rem] border-purple-500 shadow-xl"
@@ -40,7 +66,7 @@ export default function Intro() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.2 }}
             >
-                {personal.name}
+                {type === 'preview' ? data.name : introData?.name}
             </motion.h1>
 
             <motion.div
@@ -75,7 +101,7 @@ export default function Intro() {
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ delay: 0.4, duration: 0.6 }}
             >
-                {personal.description}
+                {type === 'preview' ? data.description : introData?.description}
             </motion.h1>
             <motion.div
                 className="flex flex-col sm:flex-row items-center justify-center gap-2 px-4 text-lg font-medium"
@@ -112,48 +138,48 @@ export default function Intro() {
                     duration: 0.6,
                 }}
             >
-                {personal.socials.linked && (
+                {introData && (
                     <a
                         className="bg-white p-4 text-gray-700 hover:text-gray-950 flex items-center gap-2 rounded-full focus:scale-[1.15] hover:scale-[1.15] active:scale-105 transition cursor-pointer borderBlack dark:bg-white/10 dark:text-white/60"
-                        href={personal.socials.linked}
+                        href={type === 'preview' ? data.linkedLink : introData?.linkedLink}
                         target="_blank"
                     >
                         <BsLinkedin className="text-blue-500 " />
                     </a>
                 )}
 
-                {personal.socials.github && (
+                {introData && (
                     <a
                         className="bg-white p-4 text-gray-700 hover:text-gray-950 flex items-center gap-2 rounded-full focus:scale-[1.15] hover:scale-[1.15] active:scale-105 transition cursor-pointer borderBlack dark:bg-white/10 dark:text-white/60"
-                        href={personal.socials.github}
+                        href={type === 'preview' ? data.githubLink : introData?.githubLink}
                         target="_blank"
                     >
                         <FaGithubSquare />
                     </a>
                 )}
 
-                {personal.socials.youtube && (
+                {introData && (
                     <a
                         className="bg-white p-4 text-gray-700 hover:text-gray-950 flex items-center gap-2 rounded-full focus:scale-[1.15] hover:scale-[1.15] active:scale-105 transition cursor-pointer borderBlack dark:bg-white/10 dark:text-white/60"
-                        href={personal.socials.youtube}
+                        href={type === 'preview' ? data.youtubeLink : introData?.youtubeLink}
                         target="_blank"
                     >
                         <FaYoutube className="text-red-500" />
                     </a>
                 )}
-                {personal.socials.tiktok && (
+                {introData && (
                     <a
                         className="bg-white p-4 text-gray-700 hover:text-gray-950 flex items-center gap-2 rounded-full focus:scale-[1.15] hover:scale-[1.15] active:scale-105 transition cursor-pointer borderBlack dark:bg-white/10 dark:text-white/60"
-                        href={personal.socials.tiktok}
+                        href={type === 'preview' ? data.tiktokLink : introData?.tiktokLink}
                         target="_blank"
                     >
                         <FaTiktok className="text-black" />
                     </a>
                 )}
-                {personal.socials.facebook && (
+                {introData && (
                     <a
                         className="bg-white p-4 text-gray-700 hover:text-gray-950 flex items-center gap-2 rounded-full focus:scale-[1.15] hover:scale-[1.15] active:scale-105 transition cursor-pointer borderBlack dark:bg-white/10 dark:text-white/60"
-                        href={personal.socials.facebook}
+                        href={type === 'preview' ? data.facebookLink : introData?.facebookLink}
                         target="_blank"
                     >
                         <FaFacebook className="text-blue-500" />

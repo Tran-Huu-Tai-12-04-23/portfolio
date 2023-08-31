@@ -14,7 +14,7 @@ function Button({ name, onClick = () => {}, type = 'default' }: Props) {
     return (
         <button
             onClick={onClick}
-            className={`min-w-[8rem] hover:brightness-125 py-2  text-sm rounded-md ${buttonClass}`}
+            className={`min-w-[8rem] pl-2 pr-2 hover:brightness-125 py-2  text-sm rounded-md ${buttonClass}`}
         >
             {name}
         </button>

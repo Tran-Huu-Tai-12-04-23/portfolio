@@ -1,12 +1,14 @@
 import { motion } from 'framer-motion';
 import Image from 'next/image';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import ButtonUploadFile from '@/app/components/uploadImage';
 import WaitLoadApi from '@/app/components/waitLoadApi';
 import toast from 'react-hot-toast';
 import Intro from '@/app/components/intro';
 import Preview from './preview';
 import { HiOutlineComputerDesktop } from 'react-icons/hi2';
+import Link from 'next/link';
+import Service from '@/service';
 
 function IntroSetting() {
     const [name, setName] = useState<string>('');
@@ -20,25 +22,72 @@ function IntroSetting() {
     const [linked, setLinked] = useState<string>('');
     const [waitSave, setWaitSave] = useState<boolean>(false);
     const [preview, setPreview] = useState<boolean>(false);
+    const [cv, setCv] = useState<any>([{}]);
+    const [dataIntro, setDataIntro] = useState<any>(null);
 
-    const checkDataEmpty = () => {
-        if (!name) {
-            return 'Please enter your name!';
-        } else if (!description) {
-            return 'Please enter a description!';
-        } else if (!avatar) {
-            return 'Please select a avatar!';
+    const handleCallApi = async () => {
+        const data = {
+            name,
+            description,
+            avatar: avatar[0].fileUrl,
+            facebookLink: facebook,
+            youtubeLink: youtube,
+            instagramLink: instagram,
+            githubLink: github,
+            tiktokLink: tiktok,
+            linkedLink: linked,
+            cv: cv[0].fileUrl,
+        };
+
+        try {
+            const result = await Service.callApi('/api/intro', data);
+            const res = result.data;
+
+            if (res.status === 200) {
+                return Promise.resolve(true);
+            } else {
+                return Promise.reject(false);
+            }
+        } catch (error) {
+            return Promise.reject(error);
         }
-        return true;
     };
+
     const handleSave = async () => {
-        const checkEmpty = checkDataEmpty();
-        if (checkEmpty !== true) {
-            toast(checkEmpty, {
-                icon: '⚠️',
-            });
-        }
+        toast.promise(handleCallApi(), {
+            loading: 'Saving...',
+            success: <b>Init about successfully!</b>,
+            error: <b>Could not save.</b>,
+        });
     };
+
+    useEffect(() => {
+        const getDataIntro = async () => {
+            setWaitSave(true);
+            const result = await Service.getDataFromApi('/api/intro');
+            setWaitSave(false);
+            const data = result.data;
+            if (data.status === 200) {
+                setDataIntro(JSON.parse(data.data));
+            }
+        };
+
+        getDataIntro();
+    }, []);
+
+    useEffect(() => {
+        if (dataIntro) {
+            console.log(dataIntro);
+            setName(dataIntro.name);
+            setAvatar(dataIntro.avatar);
+            setDescription(dataIntro.description);
+            setGithub(dataIntro.githubLink);
+            setFacebook(dataIntro.facebookLink);
+            setLinked(dataIntro.linkedLink);
+            setYoutube(dataIntro.youtubeLink);
+            setTiktok(dataIntro.tiktokLink);
+        }
+    }, [dataIntro]);
     return (
         <motion.div
             className="p-10 flex-shrink-0 relative"
@@ -179,6 +228,17 @@ function IntroSetting() {
                             Tiktok link
                         </label>
                     </div>
+                    <h5 className="font-bold text-sm text-gray-400">Add cv</h5>
+                    <ButtonUploadFile
+                        file={cv}
+                        setFile={setCv}
+                        route="allThing"
+                        actionComplete={() => {}}
+                    ></ButtonUploadFile>
+                    <Link href={cv[0].fileUrl ? cv[0].fileUrl : ''} target="_blank">
+                        {cv[0].fileUrl}
+                    </Link>
+                    <h5 className="font-bold text-sm text-gray-400">Add avatar</h5>
                     <ButtonUploadFile
                         file={avatar}
                         setFile={setAvatar}
@@ -208,7 +268,20 @@ function IntroSetting() {
             {waitSave && <WaitLoadApi />}
 
             <Preview preview={preview} setPreview={setPreview}>
-                <Intro></Intro>
+                <Intro
+                    type={'preview'}
+                    data={{
+                        name,
+                        description,
+                        avatar: avatar[0]?.fileUrl,
+                        facebookLink: facebook,
+                        youtubeLink: youtube,
+                        instagramLink: instagram,
+                        githubLink: github,
+                        tiktokLink: tiktok,
+                        linkedLink: linked,
+                    }}
+                ></Intro>
             </Preview>
         </motion.div>
     );

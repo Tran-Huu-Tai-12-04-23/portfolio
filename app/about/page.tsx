@@ -1,12 +1,38 @@
 'use client';
 
-import React from 'react';
+import React, { useEffect, useState } from 'react';
 import SectionHeading from '@/app/components/section-heading';
 import { motion } from 'framer-motion';
 import { about } from '@/data';
 import Image from 'next/image';
+import Service from '@/service';
+import WaitLoadApi from '../components/waitLoadApi';
 
-export default function About() {
+interface Props {
+    data: any;
+    type: null | string;
+}
+
+export default function About({ data, type = 'default' }: Props) {
+    const [aboutData, setAboutData] = useState<any>(null);
+    const [waitApi, setWaitApi] = useState<boolean>(false);
+
+    useEffect(() => {
+        const getAboutData = async () => {
+            setWaitApi(true);
+            const result = await Service.getDataFromApi('/api/about');
+            setWaitApi(false);
+
+            const data = result.data;
+
+            if (data.status === 200) {
+                setAboutData(JSON.parse(data.data));
+            }
+        };
+        getAboutData();
+    }, []);
+
+    console.log(aboutData);
     return (
         <motion.section
             className=" max-w-[60rem] w-[60%] pt-10 rounded-lg text-center leading-8 mb-20"
@@ -14,6 +40,7 @@ export default function About() {
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.175 }}
         >
+            {waitApi && <WaitLoadApi></WaitLoadApi>}
             <div className="flex justify-start flex-shrink-0 p-4 w-full">
                 <motion.div
                     className="h-[25rem] relative w-1/3 min-w-[20rem] "
@@ -22,8 +49,8 @@ export default function About() {
                     transition={{ duration: 0.6, delay: 0.3 }}
                 >
                     <Image
-                        src={about.about_image}
-                        alt={about.tag}
+                        src={type === 'preview' ? data.aboutImageLink : aboutData?.aboutImageLink}
+                        alt={aboutData?.tag}
                         className="rounded-lg w-full h-full min-w-[20rem] "
                         width={200}
                         height={200}
@@ -43,7 +70,9 @@ export default function About() {
                             transition={{ duration: 0.6, delay: 0.3 }}
                         >
                             <SectionHeading>My name is</SectionHeading>
-                            <h1 className="text-3xl ml-2 font-semibold italic text-purple-800">{about.name}</h1>
+                            <h1 className="text-3xl ml-2 font-semibold italic text-purple-800">
+                                {type === 'preview' ? data.name : aboutData?.name}
+                            </h1>
                         </motion.div>
 
                         <motion.div
@@ -57,14 +86,16 @@ export default function About() {
                                     <div className="rounded-full h-[10px] w-[10px] mr-2 bg-purple-950"></div>
                                     <li className="text-md font-bold flex justify-start mr-2">
                                         <span className="mr-2 text-[#757575]">Age</span>:{' '}
-                                        <span className="ml-2">{about.age}</span>
+                                        <span className="ml-2">{type === 'preview' ? data.age : aboutData?.age}</span>
                                     </li>
                                 </div>
                                 <div className="mt-2 flex justify-start items-center">
                                     <div className="rounded-full h-[10px] w-[10px] mr-2 bg-purple-950"></div>
                                     <li className="text-md font-bold flex justify-start mr-2">
                                         <span className="mr-2 text-[#757575]">Nationality</span>:
-                                        <span className="ml-2">{about.nationality}</span>
+                                        <span className="ml-2">
+                                            {type === 'preview' ? data.nation : aboutData?.nationality}
+                                        </span>
                                     </li>
                                 </div>
                             </ul>
@@ -73,14 +104,18 @@ export default function About() {
                                     <div className="rounded-full h-[10px] w-[10px] mr-2 bg-purple-950"></div>
                                     <li className="text-md font-bold flex justify-start mr-2">
                                         <span className="mr-2 text-[#757575]">Address</span> :{' '}
-                                        <span className="ml-2">{about.address}</span>
+                                        <span className="ml-2">
+                                            {type === 'preview' ? data.address : aboutData?.address}
+                                        </span>
                                     </li>
                                 </div>
                                 <div className="mt-2 flex justify-start items-center">
                                     <div className="rounded-full h-[10px] w-[10px] mr-2 bg-purple-950"></div>
                                     <li className="text-md font-bold flex justify-start mr-2">
                                         <span className="mr-2 text-[#757575]">Email</span> :{' '}
-                                        <span className="ml-2">{about.email}</span>
+                                        <span className="ml-2">
+                                            {type === 'preview' ? data.email : aboutData?.email}
+                                        </span>
                                     </li>
                                 </div>
                             </ul>
@@ -97,7 +132,7 @@ export default function About() {
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.6, delay: 0.6 }}
                         >
-                            {about.description}
+                            {type === 'preview' ? data.description : aboutData?.description}
                         </motion.p>
                     </div>
                 </div>

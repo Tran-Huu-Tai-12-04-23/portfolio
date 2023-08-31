@@ -1,14 +1,15 @@
 import { motion } from 'framer-motion';
 import Image from 'next/image';
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import WaitLoadApi from '@/app/components/waitLoadApi';
 import toast from 'react-hot-toast';
 import { HiOutlineComputerDesktop } from 'react-icons/hi2';
 import { GrAdd, GrFormClose } from 'react-icons/gr';
 import Preview from './preview';
 import Skills from '../skills/page';
-import Button from '@/app/components/button';
+import Service from '@/service';
 import ButtonUploadFile from '@/app/components/uploadImage';
+import Button from '@/app/components/button';
 
 const fadeInAnimationVariants = {
     initial: {
@@ -38,32 +39,88 @@ function SkillSetting() {
     const [addOtherSkill, setAddOtherSkill] = useState<boolean>(false);
     const [nameOtherSkill, setNameOtherSkill] = useState<string>('');
     const [listOtherSkill, setListOtherSkill] = useState<Array<object>>([]);
+    const [dataSkill, setDataSkill] = useState<any>(null);
 
-    const handleRemoveBackEndSkill = (indexR: number) => {
+    const handleRemove = async (type: string, indexR: number) => {
+        try {
+            const result = await Service.delete('/api/skill', `/?type=${type}&indexData=${indexR}`);
+            const res = result.data;
+
+            if (res.status === 200) {
+                return Promise.resolve(true);
+            } else {
+                return Promise.reject(false);
+            }
+        } catch (error) {
+            return Promise.reject(error);
+        }
+    };
+    const handleRemoveBackEndSkill = async (type: string, indexR: number) => {
+        await toast.promise(handleRemove(type, indexR), {
+            loading: 'Saving...',
+            success: <b>Init about successfully!</b>,
+            error: <b>Could not save.</b>,
+        });
         setListBackEndSkill((prev) => {
             return prev.filter((dev, index) => index !== indexR);
         });
     };
 
-    const handleRemoveFrontEndSkill = (indexR: number) => {
+    const handleRemoveFrontEndSkill = async (type: string, indexR: number) => {
+        await toast.promise(handleRemove(type, indexR), {
+            loading: 'Saving...',
+            success: <b>Init about successfully!</b>,
+            error: <b>Could not save.</b>,
+        });
         setListFrontEndSkill((prev) => {
             return prev.filter((dev, index) => index !== indexR);
         });
     };
 
-    const handleRemoveOtherSkill = (indexR: number) => {
+    const handleRemoveOtherSkill = async (type: string, indexR: number) => {
+        await toast.promise(handleRemove(type, indexR), {
+            loading: 'Saving...',
+            success: <b>Init about successfully!</b>,
+            error: <b>Could not save.</b>,
+        });
         setListFrontEndSkill((prev) => {
             return prev.filter((dev, index) => index !== indexR);
         });
     };
-    const handleAddBackEndSkill = () => {
+    const handleCallApi = async (data: any) => {
+        try {
+            const result = await Service.callApi('/api/skill', data);
+            const res = result.data;
+
+            if (res.status === 200) {
+                return Promise.resolve(true);
+            } else {
+                return Promise.reject(false);
+            }
+        } catch (error) {
+            return Promise.reject(error);
+        }
+    };
+    const handleAddBackEndSkill = async () => {
         if (nameSkillBackend && skillImage.length > 0) {
+            await toast.promise(
+                handleCallApi({
+                    nameSkill: nameSkillBackend,
+                    linkImage: skillImage[0]?.fileUrl,
+                    type: 'backend',
+                }),
+                {
+                    loading: 'Saving...',
+                    success: <b>Init about successfully!</b>,
+                    error: <b>Could not save.</b>,
+                },
+            );
             setListBackEndSkill((prev: any) => {
                 return [
                     ...prev,
                     {
                         name: nameSkillBackend,
-                        imageUrl: skillImage[0]?.fileUrl,
+                        linkImage: skillImage[0]?.fileUrl,
                     },
                 ];
             });
@@ -72,14 +129,26 @@ function SkillSetting() {
         }
     };
 
-    const handleAddFrontEndSkill = () => {
+    const handleAddFrontEndSkill = async () => {
         if (nameSkillFrontEnd && skillImage.length > 0) {
+            await toast.promise(
+                handleCallApi({
+                    nameSkill: nameSkillFrontEnd,
+                    linkImage: skillImage[0]?.fileUrl,
+                    type: 'front-end',
+                }),
+                {
+                    loading: 'Saving...',
+                    success: <b>Init about successfully!</b>,
+                    error: <b>Could not save.</b>,
+                },
+            );
             setListFrontEndSkill((prev: any) => {
                 return [
                     ...prev,
                     {
                         name: nameSkillFrontEnd,
-                        imageUrl: skillImage[0]?.fileUrl,
+                        linkImage: skillImage[0]?.fileUrl,
                     },
                 ];
             });
@@ -88,14 +157,26 @@ function SkillSetting() {
         }
     };
 
-    const handleAddOtherSkill = () => {
+    const handleAddOtherSkill = async () => {
         if (nameOtherSkill && skillImage.length > 0) {
+            await toast.promise(
+                handleCallApi({
+                    nameSkill: nameSkillFrontEnd,
+                    linkImage: skillImage[0]?.fileUrl,
+                    type: 'other',
+                }),
+                {
+                    loading: 'Saving...',
+                    success: <b>Init about successfully!</b>,
+                    error: <b>Could not save.</b>,
+                },
+            );
             setListOtherSkill((prev: any) => {
                 return [
                     ...prev,
                     {
                         name: nameOtherSkill,
-                        imageUrl: skillImage[0]?.fileUrl,
+                        linkImage: skillImage[0]?.fileUrl,
                     },
                 ];
             });
@@ -103,6 +184,34 @@ function SkillSetting() {
             setNameOtherSkill('');
         }
     };
+
+    useEffect(() => {
+        const getDataSkill = async () => {
+            setWaitSave(true);
+            const result = await Service.getDataFromApi('/api/skill');
+            console.log(result);
+            setWaitSave(false);
+            const data = result.data;
+            if (data.status === 200) {
+                setDataSkill(JSON.parse(data.data));
+            }
+        };
+
+        getDataSkill();
+    }, []);
+
+    useEffect(() => {
+        if (dataSkill) {
+            const backend = dataSkill?.backend;
+            const frontEnd = dataSkill?.frontEnd;
+            const other = dataSkill?.other;
+
+            setListBackEndSkill(backend);
+            setListFrontEndSkill(frontEnd);
+            setListOtherSkill(other);
+        }
+    }, [dataSkill]);
+
     return (
         <motion.div
             className="p-10 flex-shrink-0 "
@@ -113,6 +222,8 @@ function SkillSetting() {
                 opacity: 1,
             }}
         >
+            {waitSave && <WaitLoadApi />}
+
             <div className="p-4 bg-gray-100 rounded-md shadow-lg w-full relative">
                 <HiOutlineComputerDesktop
                     onClick={() => setPreview(true)}
@@ -125,7 +236,7 @@ function SkillSetting() {
                         Add skill backend
                     </h1>
                     {listBackEndSkill.length > 0 && (
-                        <ul className="flex justify-start items-center gap-5">
+                        <ul className="flex justify-start items-center gap-5 mb-5">
                             {listBackEndSkill.map((dev: any, index) => {
                                 return (
                                     <motion.li
@@ -140,14 +251,16 @@ function SkillSetting() {
                                         custom={index}
                                     >
                                         <Image
-                                            src={dev && dev.imageUrl}
+                                            src={dev && dev.linkImage}
                                             alt={dev.name}
                                             width={200}
                                             height={200}
                                             className="rounded-full h-40 bg-contain w-40 border-solid border-[2px] border-purple-700"
                                         ></Image>
                                         <GrFormClose
-                                            onClick={() => handleRemoveBackEndSkill(index)}
+                                            onClick={async () => {
+                                                await handleRemoveBackEndSkill('backend', index);
+                                            }}
                                             className="absolute top-1 right-1 hover:scale-105 mr-4 text-2xl transition-all hover:text-red-500 cursor-pointer"
                                         ></GrFormClose>
                                         <span className="capitalize">{dev.name}</span>
@@ -223,7 +336,7 @@ function SkillSetting() {
                         Add skill front end
                     </h1>
                     {listFrontEndSkill.length > 0 && (
-                        <ul className="flex justify-start items-center gap-5">
+                        <ul className="flex justify-start items-center gap-5 mb-5">
                             {listFrontEndSkill.map((dev: any, index) => {
                                 return (
                                     <motion.li
@@ -238,14 +351,16 @@ function SkillSetting() {
                                         custom={index}
                                     >
                                         <Image
-                                            src={dev && dev.imageUrl}
+                                            src={dev && dev.linkImage}
                                             alt={dev.name}
                                             width={200}
                                             height={200}
                                             className="rounded-full h-40 bg-contain w-40 border-solid border-[2px] border-purple-700"
                                         ></Image>
                                         <GrFormClose
-                                            onClick={() => handleRemoveBackEndSkill(index)}
+                                            onClick={async () => {
+                                                await handleRemoveFrontEndSkill('front-end', index);
+                                            }}
                                             className="absolute top-1 right-1 hover:scale-105 mr-4 text-2xl transition-all hover:text-red-500 cursor-pointer"
                                         ></GrFormClose>
                                         <span className="capitalize">{dev.name}</span>
@@ -254,38 +369,7 @@ function SkillSetting() {
                             })}
                         </ul>
                     )}
-                    {listFrontEndSkill.length > 0 && (
-                        <ul className="flex justify-start items-center gap-5">
-                            {listFrontEndSkill.map((dev: any, index) => {
-                                return (
-                                    <motion.li
-                                        className="relative bg-gray-500 w-fit borderBlack rounded-xl px-5 py-3 hover:brightness-125 "
-                                        key={index}
-                                        variants={fadeInAnimationVariants}
-                                        initial="initial"
-                                        whileInView="animate"
-                                        viewport={{
-                                            once: true,
-                                        }}
-                                        custom={index}
-                                    >
-                                        <Image
-                                            src={dev && dev.imageUrl}
-                                            alt={dev.name}
-                                            width={200}
-                                            height={200}
-                                            className="rounded-full h-40 bg-contain w-40 border-solid border-[2px] border-purple-700"
-                                        ></Image>
-                                        <GrFormClose
-                                            onClick={() => handleRemoveFrontEndSkill(index)}
-                                            className="absolute top-2 right-2 hover:scale-105 mr-4 text-2xl transition-all hover:text-red-500 cursor-pointer"
-                                        ></GrFormClose>
-                                        <span className="capitalize">{dev.name}</span>
-                                    </motion.li>
-                                );
-                            })}
-                        </ul>
-                    )}
+
                     {!addFrontEndSkill && (
                         <>
                             <div className="flex w-fit" onClick={() => setAddFrontEndSkill(!addFrontEndSkill)}>
@@ -353,7 +437,7 @@ function SkillSetting() {
                         Add other skill
                     </h1>
                     {listOtherSkill.length > 0 && (
-                        <ul className="flex justify-start items-center gap-5">
+                        <ul className="flex justify-start items-center gap-5 mb-5">
                             {listOtherSkill.map((dev: any, index) => {
                                 return (
                                     <motion.li
@@ -368,14 +452,16 @@ function SkillSetting() {
                                         custom={index}
                                     >
                                         <Image
-                                            src={dev && dev.imageUrl}
+                                            src={dev && dev.linkImage}
                                             alt={dev.name}
                                             width={200}
                                             height={200}
                                             className="rounded-full h-40 bg-contain w-40 border-solid border-[2px] border-purple-700"
                                         ></Image>
                                         <GrFormClose
-                                            onClick={() => handleRemoveOtherSkill(index)}
+                                            onClick={async () => {
+                                                await handleRemoveOtherSkill('other', index);
+                                            }}
                                             className="absolute top-1 right-1 hover:scale-105 mr-4 text-2xl transition-all hover:text-red-500 cursor-pointer"
                                         ></GrFormClose>
                                         <span className="capitalize">{dev.name}</span>
@@ -384,38 +470,7 @@ function SkillSetting() {
                             })}
                         </ul>
                     )}
-                    {listOtherSkill.length > 0 && (
-                        <ul className="flex justify-start items-center gap-5">
-                            {listOtherSkill.map((dev: any, index) => {
-                                return (
-                                    <motion.li
-                                        className="relative bg-gray-500 w-fit borderBlack rounded-xl px-5 py-3 hover:brightness-125 "
-                                        key={index}
-                                        variants={fadeInAnimationVariants}
-                                        initial="initial"
-                                        whileInView="animate"
-                                        viewport={{
-                                            once: true,
-                                        }}
-                                        custom={index}
-                                    >
-                                        <Image
-                                            src={dev && dev.imageUrl}
-                                            alt={dev.name}
-                                            width={200}
-                                            height={200}
-                                            className="rounded-full h-40 bg-contain w-40 border-solid border-[2px] border-purple-700"
-                                        ></Image>
-                                        <GrFormClose
-                                            onClick={() => handleRemoveOtherSkill(index)}
-                                            className="absolute top-2 right-2 hover:scale-105 mr-4 text-2xl transition-all hover:text-red-500 cursor-pointer"
-                                        ></GrFormClose>
-                                        <span className="capitalize">{dev.name}</span>
-                                    </motion.li>
-                                );
-                            })}
-                        </ul>
-                    )}
+
                     {!addOtherSkill && (
                         <>
                             <div className="flex w-fit" onClick={() => setAddOtherSkill(!addOtherSkill)}>
@@ -481,7 +536,14 @@ function SkillSetting() {
                 {waitSave && <WaitLoadApi />}
 
                 <Preview preview={preview} setPreview={setPreview}>
-                    <Skills></Skills>
+                    <Skills
+                        type={'preview'}
+                        data={{
+                            backend: listBackEndSkill,
+                            frontEnd: listFrontEndSkill,
+                            other: listOtherSkill,
+                        }}
+                    ></Skills>
                 </Preview>
             </div>
         </motion.div>

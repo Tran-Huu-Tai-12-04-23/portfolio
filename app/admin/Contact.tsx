@@ -1,17 +1,89 @@
 import { motion } from 'framer-motion';
-import Image from 'next/image';
-import { useState } from 'react';
-import ButtonUploadFile from '@/app/components/uploadImage';
-import WaitLoadApi from '@/app/components/waitLoadApi';
+import { useState, useEffect } from 'react';
 import toast from 'react-hot-toast';
+import Service from '@/service';
+import Preview from './preview';
+import Contact from '../contact/page';
+import { HiOutlineComputerDesktop } from 'react-icons/hi2';
+import WaitLoadApi from '../components/waitLoadApi';
 
 function ContactSetting() {
     const [email, setEmail] = useState<string>('');
     const [phoneNumber, setPhoneNumber] = useState<string>('');
     const [address, setAddress] = useState<string>('');
     const [country, setCountry] = useState<string>('');
+    const [preview, setPreview] = useState<boolean>(false);
+    const [contact, setContact] = useState<any>({});
+    const [waitSave, setWaitSave] = useState<boolean>(false);
 
-    const handleSave = async () => {};
+    useEffect(() => {
+        const getContact = async () => {
+            setWaitSave(true);
+            const result = await Service.getDataFromApi('/api/contact');
+            const data = result.data;
+            setWaitSave(false);
+            if (data.contact) {
+                setContact(JSON.parse(data.contact)[0]);
+            }
+        };
+
+        getContact();
+    }, []);
+
+    useEffect(() => {
+        setEmail(contact?.email);
+        setPhoneNumber(contact?.phoneNumber);
+        setAddress(contact?.address);
+        setCountry(contact?.country);
+    }, [contact]);
+    const checkDataEmpty = () => {
+        if (!email) {
+            return 'Please enter your email!';
+        } else if (!phoneNumber) {
+            return 'Please enter a phoneNumber!';
+        } else if (!address) {
+            return 'Please select a address!';
+        } else if (!country) {
+            return 'Please select a country!';
+        }
+        return true;
+    };
+    const handleCallApi = async () => {
+        const data = {
+            email,
+            phoneNumber,
+            address,
+            country,
+        };
+
+        try {
+            const result = await Service.callApi('/api/contact', data);
+            const res = result.data;
+
+            if (res.status === 200) {
+                return Promise.resolve(true);
+            } else {
+                return Promise.reject(false);
+            }
+        } catch (error) {
+            return Promise.reject(error);
+        }
+    };
+
+    const handleSave = async () => {
+        const checkEmpty = checkDataEmpty();
+        if (checkEmpty !== true) {
+            toast(checkEmpty, {
+                icon: '⚠️',
+            });
+        }
+
+        toast.promise(handleCallApi(), {
+            loading: 'Saving...',
+            success: <b>Save contact data successfully!</b>,
+            error: <b>Could not save.</b>,
+        });
+    };
     return (
         <motion.div
             className="p-10 flex-shrink-0 "
@@ -22,9 +94,14 @@ function ContactSetting() {
                 opacity: 1,
             }}
         >
-            <div className="p-4 bg-gray-100 rounded-md shadow-lg w-full">
-                <h1 className="text-2xl font-bold font-mono">Edit data contact setting for portfolio</h1>
+            {waitSave && <WaitLoadApi />}
 
+            <div className="relative p-4 bg-gray-100 rounded-md shadow-lg w-full">
+                <HiOutlineComputerDesktop
+                    onClick={() => setPreview(true)}
+                    className="hover:text-primary group text-3xl absolute top-6 right-6 cursor-pointer transition-all hover:scale-105"
+                />
+                <h1 className="text-2xl font-bold font-mono">Edit data contact setting for portfolio</h1>
                 <div className="mt-10 mb-10 w-full">
                     <div className="grid-cols-2 grid gap-6">
                         <div className="relative z-0 w-full mb-6 group">
@@ -107,6 +184,9 @@ function ContactSetting() {
                         Save
                     </button>
                 </div>
+                <Preview preview={preview} setPreview={setPreview}>
+                    <Contact data={{ email, phoneNumber, address, country }} type="preview"></Contact>
+                </Preview>
             </div>
         </motion.div>
     );

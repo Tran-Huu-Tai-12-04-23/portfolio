@@ -8,9 +8,14 @@ import { motion, useScroll, useTransform } from 'framer-motion';
 import { GoProject } from 'react-icons/go';
 import { AiOutlineUser } from 'react-icons/ai';
 
-type ProjectProps = (typeof projectsData)[number];
+interface Props {
+    name: string;
+    description: string;
+    listFrameWork: Array<any>;
+    projectImageLink: string;
+}
 
-export default function Project({ name, description, frameWorks, imageUrl }: ProjectProps) {
+export default function Project({ name, description, listFrameWork, projectImageLink }: Props) {
     const ref = useRef<HTMLDivElement>(null);
     const { scrollYProgress } = useScroll({
         target: ref,
@@ -29,22 +34,22 @@ export default function Project({ name, description, frameWorks, imageUrl }: Pro
             initial={{ opacity: 0, y: 100 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.6 }}
-            className="group mb-3 sm:mb-8 last:mb-0 xl:p-10 lg:m-8 md:p-5 p-5"
+            className="group p-5 xl:2/3 w-3/4 "
         >
-            <section className="bg-gray-100w  flex justify-start w-full border hover:border-black/5 border-transparent rounded-lg overflow-hidden sm:pr-8 relative sm:h-[30rem] hover:bg-gray-200 transition sm:group-even:pl-8 dark:text-white dark:bg-white/10 dark:hover:bg-white/20">
-                <div className="w-1/2">
+            <section className="bg-gray-100w p-4  flex justify-start w-full border hover:border-black/5 border-transparent rounded-lg overflow-hidden sm:pr-8 relative sm:h-[30rem] hover:bg-gray-200 transition sm:group-even:pl-8 dark:text-white dark:bg-white/10 dark:hover:bg-white/20">
+                <div className="w-1/2 flex justify-center items-center">
                     <Image
-                        src={imageUrl}
+                        src={projectImageLink}
                         alt="Project I worked on"
                         style={{
-                            backgroundSize: 'cover',
-                            height: '100%',
-                            width: '100%',
+                            backgroundSize: 'contain',
                         }}
-                        quality={95}
+                        className="w-fit h-fit"
+                        width={100}
+                        height={100}
                     />
                 </div>
-                <div className="p-4  flex flex-col h-full sm:group-even:ml-[18rem] w-2/3">
+                <div className="p-4  flex flex-col h-full sm:group-even:ml-[18rem] w-1/2">
                     <h3 className="text-2xl font-semibold">{name}</h3>
                     {/* <p className="mt-2 leading-relaxed text-gray-700 dark:text-white/70">{description}</p> */}
                     <div className="mt-2">
@@ -86,7 +91,7 @@ export default function Project({ name, description, frameWorks, imageUrl }: Pro
                         Preview
                     </button>
                     <ul className="flex flex-wrap mt-4 gap-2 sm:mt-auto">
-                        {frameWorks.map((tag, index) => (
+                        {listFrameWork.map((tag, index) => (
                             <li
                                 className="bg-black/[0.7] hover:bg-primary px-3 py-1 text-[0.7rem] uppercase tracking-wider text-white rounded-full dark:text-white/70"
                                 key={index}

@@ -60,11 +60,11 @@ function SideBar({ activeSidebar, setOder, order }: Props) {
     ];
     return (
         <motion.div
-            className="relative bg-[#212b36] h-screen min-w-[15rem] w-1/5 p-4"
+            className="relative bg-[#212b36] text-white h-screen min-w-[15rem] w-1/5 p-4"
             animate={activeSidebar ? 'open' : 'closed'}
             variants={variants}
         >
-            <h1 className="mb-10 text-xl dark:text-white font-bold font-mono border-b-4 border-solid border-primary w-fit">
+            <h1 className="mb-10 text-xl  font-bold font-mono border-b-4 border-solid border-primary w-fit">
                 Dashboard Admin
             </h1>
 

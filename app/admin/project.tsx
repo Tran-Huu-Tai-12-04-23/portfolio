@@ -1,6 +1,6 @@
 import { motion } from 'framer-motion';
 import Image from 'next/image';
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import ButtonUploadFile from '@/app/components/uploadImage';
 import WaitLoadApi from '@/app/components/waitLoadApi';
 import toast from 'react-hot-toast';
@@ -11,12 +11,27 @@ import { projectsData } from '@/lib/data/data';
 import Preview from './preview';
 import Projects from '../projects/page';
 import { HiOutlineComputerDesktop } from 'react-icons/hi2';
+import Service from '@/service';
 
 function ProjectsSetting() {
     const [addProject, setAddProject] = useState<boolean>(false);
     const [preview, setPreview] = useState<boolean>(false);
     const [waitSave, setWaitSave] = useState<boolean>(false);
+    const [projects, setProjects] = useState<Array<object>>([]);
 
+    useEffect(() => {
+        const getProjects = async () => {
+            setWaitSave(true);
+            const result = await Service.getDataFromApi('/api/project');
+            const data = result.data;
+            setWaitSave(false);
+            if (data.projects) {
+                setProjects(JSON.parse(data.projects));
+            }
+        };
+
+        getProjects();
+    }, []);
     return (
         <motion.div
             className="p-10 flex-shrink-0 "
@@ -58,14 +73,11 @@ function ProjectsSetting() {
                         duration: 0.4,
                     }}
                 >
-                    <FormAddProject></FormAddProject>
-                    <div className="flex justify-end mt-5 mb-10">
-                        <Button
-                            type={'cancel'}
-                            name={'Cancel add project'}
-                            onClick={() => setAddProject(false)}
-                        ></Button>
-                    </div>
+                    <FormAddProject
+                        projects={projects}
+                        setAddProject={setAddProject}
+                        setProjects={setProjects}
+                    ></FormAddProject>
                 </motion.div>
             )}
 
@@ -74,9 +86,11 @@ function ProjectsSetting() {
                     onClick={() => setPreview(true)}
                     className="hover:text-primary group text-3xl absolute top-8 right-8 cursor-pointer transition-all hover:scale-105"
                 />
-                {projectsData.map((project, index) => {
-                    return <CardProject data={project} key={index} />;
-                })}
+                {projects &&
+                    projects.length > 0 &&
+                    projects.map((project, index) => {
+                        return <CardProject setProjects={setProjects} data={project} key={index} />;
+                    })}
             </div>
 
             {waitSave && <WaitLoadApi />}

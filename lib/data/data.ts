@@ -42,6 +42,7 @@ export const experiencesData = [
             'My major is computer network and data communication, yet I find great enjoyment in designing and building software. For example, I am involved in creating websites, apps, and application interfaces. As a result, I have made the decision to independently cultivate a diverse skill set within this domain. During my time at university, I am presented with the opportunity to work with programming languages and operating systems for the first time. This stroke of luck brings me immense joy, and I am thoroughly relishing the experience',
         icon: React.createElement(LuGraduationCap),
         date: '2021',
+        time: '2021',
     },
     {
         title: 'Learning front-end on my own',
@@ -50,6 +51,7 @@ export const experiencesData = [
             "I began learning front-end development through F8 education. This website is a valuable resource for self-studying HTML, CSS, and JavaScript for beginners, and it's available for everyone interested in learning programming languages. Initially, I found it quite challenging. Consequently, I dedicated nearly the entire day to it, and after about two months, I started to grasp the concepts. I consider myself fortunate in this regard. However, the journey was not without its difficulties.",
         icon: React.createElement(CgWorkAlt),
         date: '2021 - 2022',
+        time: '2021 - 2022',
     },
     {
         title: 'Building Knowledge of Front-end and back-end ',
@@ -58,6 +60,7 @@ export const experiencesData = [
             'I continued learning more front-end development, and I started learning back-end development. Up until now, I continue to engage in daily learning sessions focused on web development, aiming to enhance my skills for the future. Additionally, successfully completing all my subjects at school has provided me with a foundational knowledge of programming languages like Object-Oriented Programming (OOP) and Database management.',
         icon: React.createElement(FaReact),
         date: '2022 - present',
+        time: '2022 - present',
     },
     {
         title: 'Advanced skills ',
@@ -66,6 +69,7 @@ export const experiencesData = [
             'I am currently working on projects assigned by the university, as well as pursuing personal areas of interest. I am actively developing and expanding these projects. Looking ahead, I am eager to embrace new opportunities for learning and acquiring fresh knowledge.',
         icon: React.createElement(BsPersonWorkspace),
         date: '2023 - present',
+        time: '2023 - present',
     },
     {
         title: 'Advanced skills ',
@@ -74,6 +78,7 @@ export const experiencesData = [
             'I am currently working on projects assigned by the university, as well as pursuing personal areas of interest. I am actively developing and expanding these projects. Looking ahead, I am eager to embrace new opportunities for learning and acquiring fresh knowledge.',
         icon: null,
         date: '2023 - present',
+        time: '2023 - present',
     },
 ] as const;
 

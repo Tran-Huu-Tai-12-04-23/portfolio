@@ -5,8 +5,15 @@ import { GrAdd } from 'react-icons/gr';
 import { IoIosClose } from 'react-icons/io';
 import { motion } from 'framer-motion';
 import Button from '@/app/components/button';
+import toast from 'react-hot-toast';
+import Service from '@/service';
 
-function FormAddProject() {
+interface Props {
+    setProjects: React.Dispatch<any>;
+    projects: Array<object>;
+    setAddProject: React.Dispatch<any>;
+}
+function FormAddProject({ setProjects, projects, setAddProject }: Props) {
     const [name, setName] = useState<string>('');
     const [description, setDescription] = useState<string>('');
     const [linkSource, setLinkSource] = useState<string>('');
@@ -19,6 +26,74 @@ function FormAddProject() {
     const handleRemoveFrameWork = (indexR: number) => {
         setListFrameWork((prev) => {
             return prev.filter((dev, index) => index !== indexR);
+        });
+    };
+
+    const checkDataEmpty = () => {
+        if (!name) {
+            return 'Please enter your name!';
+        } else if (!description) {
+            return 'Please enter description!';
+        } else if (!linkSource) {
+            return 'Please enter link source!';
+        } else if (!projectImage) {
+            return 'Please enter project image !';
+        }
+
+        return true;
+    };
+
+    const clear = () => {
+        setName('');
+        setDescription('');
+        setLinkSource('');
+        setListFrameWork([]);
+        setLinkVideoDemo('');
+        setProjectImage([{}]);
+    };
+
+    const handleCallApi = async () => {
+        const data = {
+            name,
+            description,
+            linkSource,
+            linkVideoDemo,
+            listFrameWork,
+            projectImageLink: projectImage[0]?.fileUrl,
+        };
+
+        try {
+            const result = await Service.callApi('/api/project', data);
+            const res = result.data;
+            if (res.status === 200) {
+                clear();
+                if (res.project) {
+                    setProjects((prev: any) => {
+                        return [...prev, JSON.parse(res.project)];
+                    });
+                }
+                return Promise.resolve(true);
+            } else {
+                return Promise.reject(false);
+            }
+        } catch (error) {
+            return Promise.reject(error);
+        }
+    };
+
+    const handleAddProject = async () => {
+        const checkEmpty = checkDataEmpty();
+        if (checkEmpty !== true) {
+            toast(checkEmpty, {
+                icon: '⚠️',
+            });
+            return;
+        }
+
+        toast.promise(handleCallApi(), {
+            loading: 'Saving...',
+            success: <b>Add project successfully!</b>,
+            error: <b>Could not add.</b>,
         });
     };
 
@@ -64,7 +139,7 @@ function FormAddProject() {
                     <input
                         onChange={(e) => setLinkVideoDemo(e.target.value)}
                         value={linkVideoDemo}
-                        type="number"
+                        type="text"
                         name="age_id"
                         id="age_id"
                         className="block py-2.5 px-0 w-full text-sm text-gray-900 bg-transparent border-0 border-b-2 border-gray-300 appearance-none   focus:outline-none focus:ring-0 focus:border-primary peer"
@@ -81,7 +156,7 @@ function FormAddProject() {
             <div className="mb-10">
                 <h1 className="text-sm mb-2 font-bold ">Add frameWork</h1>
                 {listFrameWork.length > 0 && (
-                    <ul>
+                    <ul className="flex justify-start gap-10">
                         {listFrameWork.map((frameWork, index) => {
                             return (
                                 <li
@@ -175,6 +250,10 @@ function FormAddProject() {
                         ></Image>
                     )}
                 </div>
+            </div>
+            <div className="flex justify-end gap-5 mt-5 mb-10 border-b-2 pb-4 border-dashed border-primary">
+                <Button name={'Add'} onClick={handleAddProject} type={'opacity'}></Button>
+                <Button type={'cancel'} name={'Cancel add project'} onClick={() => setAddProject(false)}></Button>
             </div>
         </div>
     );

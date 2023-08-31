@@ -1,15 +1,17 @@
 import { NextResponse as res } from 'next/server';
 import { connectToDatabase } from '@/lib/config';
-import AboutController from '@/lib/controller/AboutController';
+// import UserController from '@/app/lib/controller/UserController';
+import ContactController from '@/lib/controller/ContactController';
 
 connectToDatabase();
 
 export async function GET() {
     try {
-        const data = await AboutController.get();
+        const contact = await ContactController.get();
         return res.json({
             status: 200,
-            data: JSON.stringify(data),
+            message: 'Get all project!',
+            contact: JSON.stringify(contact),
         });
     } catch (error) {
         console.error('Error handling request:', error);
@@ -20,32 +22,31 @@ export async function GET() {
 export async function POST(req: Request) {
     try {
         const body = await req.json();
-        const { name, age, address, email, nation, tag, description, aboutImageLink } = body;
+        const { email, address, phoneNumber, country } = body;
+        if (!email || !address || !phoneNumber || !country) {
+            return res.json({ error: 'invalid data', status: 500 });
+        }
 
-        const initAbout = {
-            name,
-            age,
-            address,
+        const datContact = {
             email,
-            nation,
-            tag,
-            description,
-            aboutImageLink,
+            address,
+            phoneNumber,
+            country,
         };
 
-        const checkExist = await AboutController.checkExists();
+        const checkExist = await ContactController.checkExists();
         let result;
         if (!checkExist) {
-            result = await AboutController.createNew(initAbout);
+            result = await ContactController.createNew(datContact);
         }
         if (checkExist) {
-            result = await AboutController.update(initAbout);
+            result = await ContactController.update(datContact);
         }
 
         if (result) {
-            return res.json({ message: 'Init about successfully', status: 200 });
+            return res.json({ message: 'Init contact successfully', status: 200 });
         } else {
-            return res.json({ message: 'Init about failed', status: 500 });
+            return res.json({ message: 'Init contact failed', status: 500 });
         }
     } catch (error) {
         console.log(error);
