@@ -6,7 +6,6 @@ import WaitLoadApi from '@/app/components/waitLoadApi';
 import Button from '@/app/components/button';
 import toast from 'react-hot-toast';
 import { HiOutlineComputerDesktop } from 'react-icons/hi2';
-import { GrAdd, GrFormClose } from 'react-icons/gr';
 import Preview from './preview';
 import About from '../about/page';
 import Service from '@/service';

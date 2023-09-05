@@ -3,8 +3,8 @@ import Header from '@/app/admin/header';
 import DashBoard from '@/app/admin/dashboard';
 import IntroSetting from '@/app/admin/intro';
 import AboutSetting from '@/app/admin/about';
-import ContactSetting from '@/app/admin/contact';
-import EmailReceivedSetting from '@/app/admin/emailReceived';
+// import ContactSetting from '@/app/admin/contact';
+// import EmailReceivedSetting from '@/app/admin/emailReceived';
 import ExperienceSetting from '@/app/admin/experience';
 import ProjectsSetting from '@/app/admin/project';
 import SkillSetting from '@/app/admin/skill';
@@ -31,8 +31,8 @@ function MainBoard({ activeSidebar, setActiveSidebar, order }: Props) {
             {order === 4 && <ProjectsSetting></ProjectsSetting>}
             {order === 5 && <ExperienceSetting></ExperienceSetting>}
             {order === 6 && <SkillSetting></SkillSetting>}
-            {order === 7 && <ContactSetting></ContactSetting>}
-            {order === 8 && <EmailReceivedSetting></EmailReceivedSetting>}
+            {/* {order === 7 && <ContactSetting></ContactSetting>}
+            {order === 8 && <EmailReceivedSetting></EmailReceivedSetting>} */}
         </motion.div>
     );
 }
