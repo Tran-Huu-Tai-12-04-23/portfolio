@@ -4,7 +4,7 @@ import DashBoard from '@/app/admin/dashboard';
 import IntroSetting from '@/app/admin/intro';
 import AboutSetting from '@/app/admin/about';
 import ContactSetting from '@/app/admin/contactSetting';
-// import EmailReceivedSetting from '@/app/admin/emailReceived';
+import EmailReceivedSetting from '@/app/admin/emailReceivedSetting';
 import ExperienceSetting from '@/app/admin/experience';
 import ProjectsSetting from '@/app/admin/project';
 import SkillSetting from '@/app/admin/skill';
