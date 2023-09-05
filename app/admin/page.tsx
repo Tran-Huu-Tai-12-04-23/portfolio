@@ -1,7 +1,7 @@
 'use client';
 import { useState } from 'react';
-import SideBar from './sidebar';
-import MainBoard from './mainBoard';
+import SideBar from '@/app/admin/sidebar';
+import MainBoard from '@/app/admin/mainBoard';
 
 function Admin() {
     const [activeSidebar, setActiveSidebar] = useState(true);
