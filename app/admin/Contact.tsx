@@ -2,9 +2,9 @@ import { motion } from 'framer-motion';
 import { useState, useEffect } from 'react';
 import toast from 'react-hot-toast';
 import Service from '@/service';
-import Preview from './preview';
-import Contact from '../contact/page';
-import { HiOutlineComputerDesktop } from 'react-icons/hi2';
+// import Preview from './preview';
+// import Contact from '../contact/page';
+// import { HiOutlineComputerDesktop } from 'react-icons/hi2';
 import WaitLoadApi from '../components/waitLoadApi';
 
 function ContactSetting() {
@@ -96,7 +96,7 @@ function ContactSetting() {
         >
             {waitSave && <WaitLoadApi />}
 
-            <div className="relative p-4 bg-gray-100 rounded-md shadow-lg w-full">
+            {/* <div className="relative p-4 bg-gray-100 rounded-md shadow-lg w-full">
                 <HiOutlineComputerDesktop
                     onClick={() => setPreview(true)}
                     className="hover:text-primary group text-3xl absolute top-6 right-6 cursor-pointer transition-all hover:scale-105"
@@ -187,7 +187,7 @@ function ContactSetting() {
                 <Preview preview={preview} setPreview={setPreview}>
                     <Contact></Contact>
                 </Preview>
-            </div>
+            </div> */}
         </motion.div>
     );
 }
