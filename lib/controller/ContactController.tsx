@@ -35,7 +35,7 @@ class ContactController {
 
     async get() {
         try {
-            const result = await ContactStore.find();
+            const result = await ContactStore.findOne();
             return result;
         } catch (error) {
             console.error(error);

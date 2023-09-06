@@ -31,10 +31,10 @@ function ContactSetting() {
     }, []);
 
     useEffect(() => {
-        setEmail(contact?.email);
-        setPhoneNumber(contact?.phoneNumber);
-        setAddress(contact?.address);
-        setCountry(contact?.country);
+        setEmail(contact?.email || '');
+        setPhoneNumber(contact?.phoneNumber || '');
+        setAddress(contact?.address || '');
+        setCountry(contact?.country || '');
     }, [contact]);
     const checkDataEmpty = () => {
         if (!email) {

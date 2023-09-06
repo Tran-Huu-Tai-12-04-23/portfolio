@@ -3,7 +3,6 @@ import Image from 'next/image';
 import { useState, useEffect } from 'react';
 import ButtonUploadFile from '@/app/components/uploadImage';
 import WaitLoadApi from '@/app/components/waitLoadApi';
-import Button from '@/app/components/button';
 import toast from 'react-hot-toast';
 import { HiOutlineComputerDesktop } from 'react-icons/hi2';
 import Preview from './preview';

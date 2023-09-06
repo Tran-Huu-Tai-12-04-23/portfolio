@@ -32,7 +32,7 @@ function MainBoard({ activeSidebar, setActiveSidebar, order }: Props) {
             {order === 5 && <ExperienceSetting></ExperienceSetting>}
             {order === 6 && <SkillSetting></SkillSetting>}
             {order === 7 && <ContactSetting></ContactSetting>}
-            {/* {order === 8 && <EmailReceivedSetting></EmailReceivedSetting>} */}
+            {order === 8 && <EmailReceivedSetting></EmailReceivedSetting>}
         </motion.div>
     );
 }

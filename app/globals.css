@@ -172,3 +172,9 @@ html.dark {
     letter-spacing: 1px;
     display: none;
 }
+
+ul,
+li {
+    margin: 0;
+    padding: 0;
+}

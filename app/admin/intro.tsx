@@ -235,9 +235,12 @@ function IntroSetting() {
                         route="allThing"
                         actionComplete={() => {}}
                     ></ButtonUploadFile>
-                    <Link href={cv[0].fileUrl ? cv[0].fileUrl : ''} target="_blank">
-                        {cv[0].fileUrl}
-                    </Link>
+                    {cv[0].fileUrl && (
+                        <Link href={cv[0].fileUrl} target="_blank">
+                            {cv[0].fileUrl}
+                        </Link>
+                    )}
+
                     <h5 className="font-bold text-sm text-gray-400">Add avatar</h5>
                     <ButtonUploadFile
                         file={avatar}
@@ -248,8 +251,8 @@ function IntroSetting() {
                     <div className="w-full mt-10 flex-col items-center flex justify-center">
                         {avatar[0].fileUrl && (
                             <Image
-                                src={avatar[0]?.fileUrl}
-                                alt={''}
+                                src={avatar[0]?.fileUrl || ''}
+                                alt={'Tran huu tai'}
                                 className="rounded-md"
                                 width={100}
                                 height={100}

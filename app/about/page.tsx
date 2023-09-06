@@ -11,6 +11,8 @@ export default function About() {
     const [aboutData, setAboutData] = useState<any>(null);
     const [waitApi, setWaitApi] = useState<boolean>(false);
 
+    console.log(aboutData);
+
     useEffect(() => {
         const getAboutData = async () => {
             setWaitApi(true);
@@ -28,34 +30,20 @@ export default function About() {
 
     return (
         <motion.section
-            className=" max-w-[60rem] w-[60%] pt-10 rounded-lg text-center leading-8 mb-20"
+            className=" xl:w-2/3 w-full xl:p-10 lg:p-10 rounded-lg text-center leading-8 mb-20"
             initial={{ opacity: 0, y: 100 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ duration: 0.6, delay: 0.175 }}
         >
             {waitApi && <WaitLoadApi></WaitLoadApi>}
-            <div className="flex justify-start flex-shrink-0 p-4 w-full">
-                <motion.div
-                    className="h-[25rem] relative w-1/3 min-w-[20rem] "
-                    initial={{ opacity: 0, y: 100 }}
-                    animate={{ opacity: 1, y: 0 }}
-                    transition={{ duration: 0.6, delay: 0.3 }}
-                >
-                    <Image
-                        src={aboutData?.aboutImageLink}
-                        alt={aboutData?.tag}
-                        className="rounded-lg w-full h-full min-w-[20rem] "
-                        width={200}
-                        height={200}
-                    ></Image>
-                </motion.div>
-                <div className="w-2/3 min-w-[37rem] p-4 relative">
-                    <div className="rotate-90 transition-all flex justify-between items-center absolute w-max top-1/2 -left-[10rem] -translate-y-1/2">
-                        <div className="h-[2px] w-24 mb-8 mr-4 bg-[#413d7a]"></div>
+            <div className="flex xl:flex-row gap-5 lg:flex-row flex-col justify-start flex-shrink-0 p-4 w-full">
+                <div className="xl:w-2/3 lg:w-2/3 w-full p-4 relative xl:order-2 lg:order-2 order-1">
+                    <div className="xl:rotate-90 lg:rotate-90 rotate-0 transition-all flex justify-between items-center xl:absolute lg:absolute w-max relative xl:top-1/2 lg:top-1/2 xl:-left-[10rem] lg:-left-[10rem] m-auto xl:-translate-y-1/2 lg:-translate-y-1/2">
+                        <div className="h-[2px] xl:w-24 lg:w-24 mb-8 mr-4 bg-[#413d7a]"></div>
                         <SectionHeading>About me</SectionHeading>
-                        <div className="h-[2px] w-24 mb-8 ml-4 bg-[#413d7a]"></div>
+                        <div className="h-[2px] xl:w-24 lg:w-24 mb-8 ml-4 bg-[#413d7a]"></div>
                     </div>
-                    <div className="w-full ml-24">
+                    <div className="w-fit xl:ml-24 lg:ml-24">
                         <motion.div
                             className="flex justify-start "
                             initial={{ opacity: 0, y: 100 }}
@@ -63,16 +51,18 @@ export default function About() {
                             transition={{ duration: 0.6, delay: 0.3 }}
                         >
                             <SectionHeading>My name is</SectionHeading>
-                            <h1 className="text-3xl ml-2 font-semibold italic text-purple-800">{aboutData?.name}</h1>
+                            <h1 className="xl:text-3xl lg:text-3xl text-xl ml-2 font-semibold italic text-purple-800">
+                                {aboutData?.name}
+                            </h1>
                         </motion.div>
 
                         <motion.div
-                            className=" flex justify-between "
+                            className=" flex justify-between xl:flex-row lg:flex-row flex-col"
                             initial={{ opacity: 0, y: 100 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.6, delay: 0.4 }}
                         >
-                            <ul className="w-[13rem]">
+                            <ul className="max-w-[13rem] ">
                                 <div className="mt-2 flex justify-start items-center">
                                     <div className="rounded-full h-[10px] w-[10px] mr-2 bg-purple-950"></div>
                                     <li className="text-md font-bold flex justify-start mr-2">
@@ -84,7 +74,7 @@ export default function About() {
                                     <div className="rounded-full h-[10px] w-[10px] mr-2 bg-purple-950"></div>
                                     <li className="text-md font-bold flex justify-start mr-2">
                                         <span className="mr-2 text-[#757575]">Nationality</span>:
-                                        <span className="ml-2">{aboutData?.nationality}</span>
+                                        <span className="ml-2">{aboutData?.nation}</span>
                                     </li>
                                 </div>
                             </ul>
@@ -112,7 +102,7 @@ export default function About() {
                             transition={{ duration: 0.6, delay: 0.5 }}
                         ></motion.div>
                         <motion.p
-                            className="text-[#757575] w-[95%] text-sm mt-4 text-left"
+                            className="text-[#757575] xl:w-[95%] lg:w-[95%] w-full  text-sm mt-4 text-left"
                             initial={{ opacity: 0, y: 100 }}
                             animate={{ opacity: 1, y: 0 }}
                             transition={{ duration: 0.6, delay: 0.6 }}
@@ -121,6 +111,22 @@ export default function About() {
                         </motion.p>
                     </div>
                 </div>
+                <motion.div
+                    className=" relative xl:w-1/3 lg:w-1/3 w-full flex justify-center items-center xl:order-1 lg:order-1 order-2"
+                    initial={{ opacity: 0, y: 100 }}
+                    animate={{ opacity: 1, y: 0 }}
+                    transition={{ duration: 0.6, delay: 0.3 }}
+                >
+                    {aboutData?.aboutImageLink && (
+                        <Image
+                            src={aboutData?.aboutImageLink}
+                            alt={aboutData?.tag || 'Tran Huu Tai'}
+                            className="rounded-lg w-[80%] "
+                            width={200}
+                            height={200}
+                        ></Image>
+                    )}
+                </motion.div>
             </div>
         </motion.section>
     );

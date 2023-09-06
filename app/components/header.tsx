@@ -8,18 +8,21 @@ import { usePathname } from 'next/navigation';
 export default function Header() {
     const pathName = usePathname();
     return (
-        <header className="z-[999] relative">
-            <motion.div
+        <header className="z-[999] relative lg:block xl:block hidden">
+            {/* <motion.div
                 className="fixed bottom-0 left-1/2 h-[4.5rem] w-full rounded-none border border-white border-opacity-40 bg-white bg-opacity-80 shadow-lg shadow-black/[0.03] backdrop-blur-[0.5rem] sm:bottom-6 sm:h-[3.25rem] sm:w-[36rem] sm:rounded-full dark:bg-gray-950 dark:border-black/40 dark:bg-opacity-75"
                 initial={{ y: -100, x: '-50%', opacity: 0 }}
                 animate={{ y: 0, x: '-50%', opacity: 1 }}
-            ></motion.div>
-
-            <nav className="flex fixed bottom-[0.15rem] left-1/2 h-12 -translate-x-1/2 py-2 sm:bottom-[1.7rem] sm:h-[initial] sm:py-0">
-                <ul className="flex w-[22rem] flex-wrap items-center justify-center gap-y-1 text-[0.9rem] font-medium text-gray-500 sm:w-[initial] sm:flex-nowrap sm:gap-5">
+            ></motion.div> */}
+            <nav className="flex fixed xl:bottom-7 left-0 right-0 lg:bottom-7 justify-center items-center md:bottom-0 sm:bottom-0 bottom-0">
+                <motion.ul
+                    initial={{ y: -100, opacity: 0 }}
+                    animate={{ y: 0, opacity: 1 }}
+                    className="flex min-w-[22rem] gap-y-1 text-[0.9rem] font-medium text-gray-500 bg-[#1c1b28] pt-2 xl:rounded-full lg:rounded-full  pb-2"
+                >
                     {links.map((link) => (
                         <motion.li
-                            className=" flex items-center justify-center relative"
+                            className="flex items-center justify-center relative pl-4 pr-4"
                             key={link.hash}
                             initial={{ y: -100, opacity: 0 }}
                             animate={{ y: 0, opacity: 1 }}
@@ -45,7 +48,7 @@ export default function Header() {
                             </Link>
                         </motion.li>
                     ))}
-                </ul>
+                </motion.ul>
             </nav>
         </header>
     );
