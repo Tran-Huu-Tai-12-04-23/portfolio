@@ -18,8 +18,6 @@ export default function ButtonUploadFile({ setFile, file, route = 'allThing', ac
             <UploadDropzone<OurFileRouter>
                 endpoint={route}
                 onClientUploadComplete={(res) => {
-                    // Do something with the response
-                    // console.log('Files: ', res);
                     if (res) {
                         setFile(res);
                     }

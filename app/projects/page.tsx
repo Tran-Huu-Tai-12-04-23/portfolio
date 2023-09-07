@@ -27,13 +27,12 @@ export default function Projects() {
         getProjects();
     }, []);
 
-    console.log(projects);
     return (
-        <section className="scroll-mt-28 mb-28 mt-10">
+        <section className="w-screen overflow-hidden mb-28 mt-10">
             {waitApi && <WaitLoadApi></WaitLoadApi>}
             <SectionHeading>My projects</SectionHeading>
             <motion.div
-                className="no-scrollbar w-screen flex flex-col items-center"
+                className="no-scrollbar w-screen flex flex-wrap gap-5 flex-col justify-center items-center"
                 initial={{ opacity: 0, y: 100 }}
                 animate={{ opacity: 1, y: 0 }}
                 transition={{ duration: 0.6, delay: 0.3 }}

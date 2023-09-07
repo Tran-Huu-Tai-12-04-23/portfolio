@@ -81,7 +81,7 @@ function ProjectsSetting() {
                 </motion.div>
             )}
 
-            <div className="p-4 bg-gray-100 rounded-md shadow-lg w-full grid xl:grid-cols-4 gap-5 relative">
+            <div className="p-4 flex justify-start items-center bg-gray-100 rounded-md shadow-lg w-full gap-5 relative">
                 <HiOutlineComputerDesktop
                     onClick={() => setPreview(true)}
                     className="hover:text-primary group text-3xl absolute top-8 right-8 cursor-pointer transition-all hover:scale-105"

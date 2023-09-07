@@ -35,7 +35,7 @@ export default function Intro({ type = 'default', data = {} }: Props) {
     }, []);
 
     return (
-        <section className=" max-w-[50rem] text-center flex justify-center items-center h-full xl:mt-10">
+        <section className="xl:w-[50rem] lg:w-[50rem] w-full text-center flex justify-center items-center h-full mt-10">
             {waitApi && <WaitLoadApi></WaitLoadApi>}
             <div>
                 <div className="flex items-center justify-center">
@@ -86,7 +86,7 @@ export default function Intro({ type = 'default', data = {} }: Props) {
                         delay: 0.4,
                         duration: 0.6,
                     }}
-                    className="flex justify-center items-center mt-5 mb-5"
+                    className="flex justify-center items-center mt-5 mb-5 w-screen overflow-hidden"
                 >
                     <div className="container flex justify-center items-center">
                         <div className="content">
@@ -106,7 +106,7 @@ export default function Intro({ type = 'default', data = {} }: Props) {
                     </div>
                 </motion.div>
                 <motion.h1
-                    className="mb-10 mt-4 px-4 text-md font-medium !leading-[1.5] sm:text-md"
+                    className="mb-10 mt-4 text-md font-medium !leading-[1.5] sm:text-md"
                     initial={{ opacity: 0, y: 100 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{ delay: 0.4, duration: 0.6 }}
@@ -114,7 +114,7 @@ export default function Intro({ type = 'default', data = {} }: Props) {
                     {type === 'preview' ? data.description : introData?.description}
                 </motion.h1>
                 <motion.div
-                    className="flex flex-col sm:flex-row items-center justify-center gap-2 px-4 text-lg font-medium"
+                    className="flex w-full pl-10 pr-10"
                     initial={{ opacity: 0, y: 100 }}
                     animate={{ opacity: 1, y: 0 }}
                     transition={{
@@ -122,21 +122,25 @@ export default function Intro({ type = 'default', data = {} }: Props) {
                         duration: 0.6,
                     }}
                 >
-                    <div className="flex justify-center flex-shrink-0 w-full">
+                    <div className="flex xl:flex-row lg:flex-row flex-col gap-5  flex-shrink-0 ml-auto mr-auto">
                         <Link
                             href="/contact"
-                            className="group bg-gray-900 text-white px-7 py-3 flex items-center gap-2 rounded-full outline-none focus:scale-110 hover:scale-110 hover:bg-gray-950 active:scale-105 transition"
+                            className="group bg-gray-900 text-white px-7 py-3 flex justify-center max-w-[20rem] ml-auto mr-auto items-center gap-2 rounded-full outline-none focus:scale-110 hover:scale-110 hover:bg-gray-950 active:scale-105 transition"
                         >
-                            Contact me here <BsArrowRight className="opacity-70 group-hover:translate-x-1 transition" />
+                            <span> Contact me here</span>
+                            <BsArrowRight className="opacity-70 group-hover:translate-x-1 transition" />
                         </Link>
 
-                        <a
-                            className="group bg-white px-7 ml-5 py-3 flex items-center gap-2 rounded-full outline-none focus:scale-110 hover:scale-110 active:scale-105 transition cursor-pointer borderBlack dark:bg-white/10"
-                            href="/CV.pdf"
-                            download
-                        >
-                            Download CV <HiDownload className="opacity-60 group-hover:translate-y-1 transition" />
-                        </a>
+                        {introData?.cv && (
+                            <a
+                                className="group flex justify-center items-center max-w-[20rem] ml-auto mr-auto bg-white px-7 xl:ml-5 lg:ml-5 py-3 gap-2 rounded-full outline-none focus:scale-110 hover:scale-110 active:scale-105 transition cursor-pointer borderBlack dark:bg-white/10"
+                                href={introData?.cv}
+                                download
+                            >
+                                <span>Download CV</span>
+                                <HiDownload className="opacity-60 group-hover:translate-y-1 transition" />
+                            </a>
+                        )}
                     </div>
                 </motion.div>
                 <motion.div

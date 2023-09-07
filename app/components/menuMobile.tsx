@@ -32,7 +32,7 @@ const MenuMobile = () => {
 
     return (
         <motion.nav
-            className="fixed top-0 bottom-0 left-0 right-0 w-full z-[9999999] xl:hidden lg:hidden block"
+            className={`fixed top-0 bottom-0 left-0  z-[9999999] xl:hidden lg:hidden block ${isOpen ? 'right-0' : ''}`}
             initial={false}
             animate={isOpen ? 'open' : 'closed'}
             custom={height}
@@ -42,7 +42,11 @@ const MenuMobile = () => {
                 className="absolute top-0 left-0 bottom-0 w-full right-0 bg-[rgba(255,255,255,0.2)] dark:bg-[rgba(28,27,41,0.6)] backdrop-blur-xl "
                 variants={sidebar}
             />
-            <motion.div initial={{ opacity: 0 }} animate={{ opacity: 1 }} className="flex justify-center items-center">
+            <motion.div
+                initial={{ opacity: 0 }}
+                animate={{ opacity: 1 }}
+                className={`flex justify-center items-center ${isOpen ? '' : 'hidden'}`}
+            >
                 <Navigation />
             </motion.div>
             <MenuToggle toggle={() => toggleOpen()} />

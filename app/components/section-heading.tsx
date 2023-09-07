@@ -11,7 +11,7 @@ export default function SectionHeading({ children }: SectionHeadingProps) {
             initial={{ opacity: 0, y: 100 }}
             animate={{ opacity: 1, y: 0 }}
             transition={{ delay: 0.8 }}
-            className="xl:text-3xl lg:text-3xl text-xl font-bold capitalize mb-8 text-center"
+            className="xl:text-3xl lg:text-3xl text-xl font-bold capitalize mb-2 text-center"
         >
             {children}
         </motion.h2>

@@ -5,6 +5,8 @@ import Link from 'next/link';
 import ModalConfirmRemove from '../components/modalConfirmRemove';
 import Service from '@/service';
 import toast from 'react-hot-toast';
+import { useRouter } from 'next/navigation';
+import { useProjectId } from '@/context/project-id-context';
 
 interface Props {
     data: any;
@@ -12,6 +14,9 @@ interface Props {
 }
 
 function CardProject({ data, setProjects }: Props) {
+    const { setProjectIdValue } = useProjectId();
+
+    const router = useRouter();
     const [confirmRemove, setConfirmRemove] = useState<boolean>(false);
     const handleCallApi = async () => {
         try {
@@ -38,7 +43,7 @@ function CardProject({ data, setProjects }: Props) {
         setConfirmRemove(false);
     };
     return (
-        <div className="hover:bg-[rgba(168,85,247,0.1)]   cursor-pointer max-w-sm p-4 text-black bg-white border border-gray-200 rounded-lg shadow ">
+        <div className="hover:bg-[rgba(168,85,247,0.1)] flex-shrink-0  cursor-pointer max-w-sm p-4 text-black bg-white border border-gray-200 rounded-lg shadow ">
             <div className="h-[10rem]  bg-contain">
                 <Image
                     src={data?.projectImageLink}
@@ -94,7 +99,14 @@ function CardProject({ data, setProjects }: Props) {
                     }}
                     type={'cancel'}
                 ></Button>
-                <Button name={'Read more'} onClick={() => {}} type={'opacity'}></Button>
+                <Button
+                    name={'Read more'}
+                    onClick={() => {
+                        setProjectIdValue(data._id);
+                        router.push(`/admin/edit-project/${data._id}`);
+                    }}
+                    type={'opacity'}
+                ></Button>
             </div>
 
             {confirmRemove && (
