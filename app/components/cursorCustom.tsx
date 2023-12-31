@@ -41,7 +41,7 @@ function CursorCustom() {
         });
     }, []);
 
-    return <div id="cursor-custom" className="cursor-custom"></div>;
+    return <div id="cursor-custom" className="relative cursor-custom"></div>;
 }
 
 export default CursorCustom;

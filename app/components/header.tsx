@@ -18,7 +18,7 @@ export default function Header() {
                 <motion.ul
                     initial={{ y: -100, opacity: 0 }}
                     animate={{ y: 0, opacity: 1 }}
-                    className="flex min-w-[22rem] gap-y-1 text-[0.9rem] font-medium text-gray-500 bg-[#1c1b28] pt-2 xl:rounded-full lg:rounded-full  pb-2"
+                    className="flex min-w-[22rem] gap-y-1 text-[0.9rem] text-[#0f1724] dark:text-white font-bold dark:bg-[rgba(118,111,204,0.1)] bg-[rgba(118,111,204,0.1)] backdrop-blur-3xl pt-2 xl:rounded-full lg:rounded-full  pb-2"
                 >
                     {links.map((link) => (
                         <motion.li

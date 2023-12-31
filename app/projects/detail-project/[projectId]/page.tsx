@@ -29,7 +29,6 @@ function DetailProject() {
     const [addFrameWork, setAddFrameWork] = useState<boolean>(false);
     const [projectDetail, setProjectDetail] = useState<any>(null);
     const [waitApi, setWaitApi] = useState<boolean>(false);
-
     useEffect(() => {
         const getProjectDetail = async () => {
             setWaitApi(true);
@@ -75,7 +74,11 @@ function DetailProject() {
 
     const renderImage = () => {
         return listImage.map((image, index) => {
-            return <img key={index} className="w-full h-full rounded-lg" alt={image || 'default'} src={image} />;
+            return (
+                <div key={index} className="flex justify-center items-center bg-contain w-full max-h-[40rem]">
+                    <img className="object-contain rounded-lg max-w-[40rem]" alt={image || 'default'} src={image} />
+                </div>
+            );
         });
     };
     return (
@@ -94,36 +97,24 @@ function DetailProject() {
             {waitApi && <WaitLoadApi />}
 
             <div className="flex justify-start items-start flex-col gap-5 p-10 max-w-[60rem]">
-                <h1 className="bg-clip-text bg-gradient-to-r text-6xl font-mono text-transparent from-purple-500 via-pink-500 to-red-500 font-bold ">
-                    {name}
-                </h1>
-                <h5 className="font-mono text-md text-gray-700">{description}</h5>
-                <SectionHeading>Video demo website</SectionHeading>
-                <div className="h-[1px] w-full bg-[#4a2a5b] mb-5"></div>
-
-                <video className="w-full rounded-lg" controls>
-                    <source src={linkVideoSource} type="video/mp4" />
-                    Your browser does not support the video tag.
-                </video>
-                <SectionHeading>Image relative website</SectionHeading>
-                <div className="h-[1px] w-full bg-[#4a2a5b] mb-5"></div>
-                <Carousel>{renderImage()}</Carousel>
-
                 <SectionHeading>About this website</SectionHeading>
-                <div className="h-[1px] w-full bg-[#4a2a5b] mb-5"></div>
-                <ul className="">
+                <p className="font-mono text-md text-gray-700 dark:text-white text-black">{description}</p>
+                <ul className="dark:text-white text-black">
                     {aboutProjects &&
                         aboutProjects.length > 0 &&
                         aboutProjects.map((aboutContent, index) => {
                             return (
-                                <li key={index} className="capitalize list-disc ml-5  mb-5 text-gray-500 font-mono">
+                                <li
+                                    key={index}
+                                    className="capitalize list-disc ml-5  mb-5 dark:text-white text-black font-mono"
+                                >
                                     {aboutContent}
                                 </li>
                             );
                         })}
                 </ul>
                 <SectionHeading>Technical Sheet</SectionHeading>
-                <h5 className="font-mono text-md text-gray-700">
+                <h5 className="font-mono text-md dark:text-white text-black">
                     Code technologies I got involved with while working on this project.
                 </h5>
                 <div className="h-[1px] w-full bg-[#4a2a5b] mb-5"></div>
@@ -132,7 +123,10 @@ function DetailProject() {
                         frameWorks.length > 0 &&
                         frameWorks.map((frameWork, index) => {
                             return (
-                                <li key={index} className="capitalize list-disc  ml-5 mb-5 text-gray-500 font-mono">
+                                <li
+                                    key={index}
+                                    className="capitalize list-disc  ml-5 mb-5 dark:text-white text-black font-mono"
+                                >
                                     {frameWork}
                                 </li>
                             );
@@ -160,6 +154,21 @@ function DetailProject() {
                         {linkWebsite}
                     </Link>
                 </div>
+                <SectionHeading>Image relative website</SectionHeading>
+                <div className="h-[1px] w-full bg-[#4a2a5b] mb-5"></div>
+                <Carousel>{renderImage()}</Carousel>
+                <h1 className="bg-clip-text bg-gradient-to-r text-6xl font-mono text-transparent from-purple-500 via-pink-500 to-red-500 font-bold ">
+                    {name}
+                </h1>
+                <SectionHeading>Video demo website</SectionHeading>
+                <div className="h-[1px] w-full bg-[#4a2a5b] mb-5"></div>
+
+                {linkVideoSource && (
+                    <video className="w-full rounded-lg" controls>
+                        <source src={linkVideoSource} type="video/mp4" />
+                        Your browser does not support the video tag.
+                    </video>
+                )}
             </div>
         </motion.div>
     );
