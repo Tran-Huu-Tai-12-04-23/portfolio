@@ -95,10 +95,12 @@ function DetailProject() {
             }}
         >
             {waitApi && <WaitLoadApi />}
-
             <div className="flex justify-start items-start flex-col gap-5 p-10 max-w-[60rem]">
+                <h1 className="bg-clip-text bg-gradient-to-r text-6xl font-mono text-transparent from-purple-500 via-pink-500 to-red-500 font-bold ">
+                    {name}
+                </h1>
                 <SectionHeading>About this website</SectionHeading>
-                <p className="font-mono text-md text-gray-700 dark:text-white text-black">{description}</p>
+                <p className="font-mono text-md dark:text-white text-black">{description}</p>
                 <ul className="dark:text-white text-black">
                     {aboutProjects &&
                         aboutProjects.length > 0 &&
@@ -157,9 +159,7 @@ function DetailProject() {
                 <SectionHeading>Image relative website</SectionHeading>
                 <div className="h-[1px] w-full bg-[#4a2a5b] mb-5"></div>
                 <Carousel>{renderImage()}</Carousel>
-                <h1 className="bg-clip-text bg-gradient-to-r text-6xl font-mono text-transparent from-purple-500 via-pink-500 to-red-500 font-bold ">
-                    {name}
-                </h1>
+
                 <SectionHeading>Video demo website</SectionHeading>
                 <div className="h-[1px] w-full bg-[#4a2a5b] mb-5"></div>
 

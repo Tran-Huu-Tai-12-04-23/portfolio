@@ -1,5 +1,4 @@
 import { useState } from 'react';
-import Image from 'next/image';
 import Button from '@/app/components/button';
 import Link from 'next/link';
 import ModalConfirmRemove from '../components/modalConfirmRemove';
@@ -43,16 +42,9 @@ function CardProject({ data, setProjects }: Props) {
         setConfirmRemove(false);
     };
     return (
-        <div className="hover:bg-[rgba(168,85,247,0.1)] flex-shrink-0  cursor-pointer max-w-sm p-4 text-black bg-white border border-gray-200 rounded-lg shadow ">
-            <div className="h-[10rem]  bg-contain">
-                <Image
-                    src={data?.projectImageLink}
-                    alt={''}
-                    width={100}
-                    height={100}
-                    className="bg-contain h-full"
-                ></Image>
-            </div>
+        <div className="overflow-hidden  hover:bg-[rgba(168,85,247,0.1)] flex-shrink-0  cursor-pointer max-w-sm p-4 text-black bg-white border border-gray-200 rounded-lg shadow ">
+            <img src={data?.projectImageLink} alt={''} height={500} className="w-full" />
+
             <div className="mt-4">
                 <a href="#">
                     <h5 className="mb-2 text-2xl font-bold tracking-tight text-gray-900 ">{data?.name}</h5>
