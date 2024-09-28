@@ -4,7 +4,6 @@ on:
   push:
     branches:
       - 2024_portfolio
-
 jobs:
   deploy:
     runs-on: ubuntu-latest
