@@ -1,0 +1,79 @@
+/* From Uiverse.io by eirikvold */ 
+.btn_active {
+  font-family: inherit;
+  font-size: 18px;
+  background: linear-gradient(to bottom, #FF9A1A 0%,#EC1C09 100%);
+  color: white;
+  padding: 0.8em 1.2em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 25px;
+  box-shadow: 0px 5px 10px rgba(0, 0, 0, 0.2);
+  transition: all 0.3s;
+  cursor: pointer;
+}
+
+.btn_no_active {
+   font-family: inherit;
+  font-size: 18px;
+  background: linear-gradient(to bottom, rgba(0,0,0,0.01) 0%,rgba(0,0,0,0.01) 100%);
+  color: black;
+  padding: 0.8em 1.2em;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: none;
+  border-radius: 25px;
+  transition: all 0.3s;
+  cursor: pointer;
+
+}
+
+.btn_active:hover, .btn_no_active:hover {
+  transform: translateY(-3px);
+  box-shadow: 0px 8px 15px rgba(0, 0, 0, 0.3);
+}
+
+.btn_active:active, .btn_no_active:active {
+  transform: scale(0.95);
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+}
+
+.btn_active span, .btn_no_active span {
+  display: block;
+  margin-left: 0.4em;
+  transition: all 0.3s;
+}
+
+ .btn_no_active svg {
+  fill: black;
+  transition: all 0.3s;
+}
+
+.btn_active svg{
+  fill: white;
+  transition: all 0.3s;
+}
+
+.btn_active .svg-wrapper,  .btn_no_active .svg-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  background-color: rgba(255, 255, 255, 0.2);
+  margin-right: 0.5em;
+  transition: all 0.3s;
+}
+
+.btn_active:hover .svg-wrapper,  .btn_no_active:hover  .svg-wrapper {
+  background-color: rgba(255, 255, 255, 0.5);
+}
+
+.btn_active:hover svg, .btn_no_active:hover  svg {
+  transform: rotate(45deg);
+}
+

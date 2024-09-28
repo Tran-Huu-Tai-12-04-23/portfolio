@@ -3,25 +3,49 @@
 @tailwind utilities;
 
 :root {
-  --background: #ffffff;
-  --foreground: #171717;
+  --background: #F2F7FC;
+  --foreground: rgba(0,0,0,0.1);
+    --primary: #000;
+  --secondary: rgba(0,0,0,0.5);
 }
+
+.dark {
+  --background: #0a0a0a;
+  --foreground: #0B192C;
+      --primary: #fff;
+  --secondary: #ccc;
+}
+
 
 @media (prefers-color-scheme: dark) {
   :root {
     --background: #0a0a0a;
     --foreground: #ededed;
+        --primary: #fff;
+  --secondary: rgba(0,0,0,0.5);
   }
 }
 
 body {
-  color: var(--foreground);
-  background: var(--background);
   font-family: Arial, Helvetica, sans-serif;
+}
+
+* {
+    font-family: Arial, Helvetica, sans-serif;
 }
 
 @layer utilities {
   .text-balance {
     text-wrap: balance;
   }
+}
+
+.center-item  {
+  @apply flex items-center justify-center;
+}
+
+
+
+.hover-gradient:hover {
+  @apply bg-gradient-to-r from-[#FF9A1A] to-[#EC1C09];
 }
