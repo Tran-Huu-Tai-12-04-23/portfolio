@@ -23,12 +23,13 @@ function SideBarInfo() {
         <div className="flex items-center flex-wrap gap-4 mt-5 justify-center">
           {SocialLinking.map((item, index) => (
             <motion.button
+              key={index}
               whileHover={{ scale: 1.1 }}
               whileTap={{ scale: 0.9 }}
               transition={{ type: "spring", stiffness: 400, damping: 10 }}
               className="text-secondary btn_active w-1/5 flex items-center flex-col gap-2 p-4 rounded-xl bg-secondary"
             >
-              <a key={index} href={item.url} target="_blank" rel="noreferrer">
+              <a href={item.url} target="_blank" rel="noreferrer">
                 {item.icon}
               </a>
             </motion.button>

@@ -12,7 +12,7 @@ import SlideImg from "./slide-img";
 
 function MainContent() {
   const [page, setPage] = useState<NavItem>(NavItem.Home);
-  const [selectedId, setSelectedId] = useState<any>(null);
+  const [selectedId, setSelectedId] = useState<string | null>(null);
   const [projectFullVIew, setProjectFullView] = useState<boolean>(false);
 
   const [project, setProject] = useState<IProject | null>(null);

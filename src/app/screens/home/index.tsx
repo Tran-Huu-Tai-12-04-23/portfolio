@@ -39,7 +39,7 @@ function Home() {
         />
       </div>
       <motion.p variants={item} className="text-secondary text-xl mt-2">
-        Hello there! I'm thrilled to welcome you to my portfolio. I am a
+        Hello there! I&apos;m thrilled to welcome you to my portfolio. I am a
         passionate and versatile full-stack developer with a keen interest in
         exploring the latest cutting-edge technologies. My journey in the world
         of web development has been nothing short of exhilarating, and I

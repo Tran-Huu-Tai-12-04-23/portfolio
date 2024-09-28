@@ -1,6 +1,7 @@
 "use client";
 import { projectsData, TypeOfProject } from "@/app/data";
 import { motion } from "framer-motion";
+import Image from "next/image";
 import { useEffect, useState } from "react";
 import { GoScreenFull } from "react-icons/go";
 
@@ -152,7 +153,9 @@ export const ProjectView = ({
               className="bg-white rounded-md p-4 card w-[28%] "
               whileHover={{ scale: 1.06 }}
             >
-              <img
+              <Image
+                width={200}
+                height={100}
                 src={data.img}
                 alt={data.name}
                 className="w-full h-[200px] object-cover rounded-md"
