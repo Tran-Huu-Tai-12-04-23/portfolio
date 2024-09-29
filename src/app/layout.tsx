@@ -28,7 +28,12 @@ export default function RootLayout({
 }>) {
   return (
     <html lang="en">
-      <link rel="icon" href="../assets/imgs/avatar.png" />
+      <head>
+        <link
+          rel="icon"
+          href="https://firebasestorage.googleapis.com/v0/b/manager-project-3bc13.appspot.com/o/Screenshot_20240505_233108_Gallery-removebg-preview%201.png?alt=media&token=d20cb350-f89a-4b0e-876e-983db0ef7620"
+        />
+      </head>
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased bg-primary text-primary`}
       >
