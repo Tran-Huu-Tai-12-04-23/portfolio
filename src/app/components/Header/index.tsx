@@ -9,7 +9,7 @@ function HeaderComponent() {
       <div className="pt-5 w-screen max-w-screen-xl flex justify-between items-center">
         <Image
           src={HeaderIcon}
-          alt={"Tran Huu Tai"}
+          alt={"Tran Huu Tai "}
           width={200}
           height={40}
           className="object-contain"
