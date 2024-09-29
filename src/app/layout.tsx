@@ -47,7 +47,7 @@ export default function RootLayout({
         />
         <meta
           property="og:image"
-          content="https://firebasestorage.googleapis.com/v0/b/manager-project-3bc13.appspot.com/o/Screenshot_20240505_233108_Gallery-removebg-preview%201.png?alt=media&token=d20cb350-f89a-4b0e-876e-983db0ef7620"
+          content="https://firebasestorage.googleapis.com/v0/b/manager-project-3bc13.appspot.com/o/Screenshot%202024-09-29%20at%2021.33.45.png?alt=media&token=2790afde-e300-4702-8efd-88716a4f836b"
         />
 
         <meta property="twitter:card" content="summary_large_image" />
@@ -59,12 +59,12 @@ export default function RootLayout({
         />
         <meta
           property="twitter:image"
-          content="https://firebasestorage.googleapis.com/v0/b/manager-project-3bc13.appspot.com/o/Screenshot_20240505_233108_Gallery-removebg-preview%201.png?alt=media&token=d20cb350-f89a-4b0e-876e-983db0ef7620"
+          content="https://firebasestorage.googleapis.com/v0/b/manager-project-3bc13.appspot.com/o/Screenshot%202024-09-29%20at%2021.33.45.png?alt=media&token=2790afde-e300-4702-8efd-88716a4f836b"
         />
 
         <link
           rel="icon"
-          href="https://firebasestorage.googleapis.com/v0/b/manager-project-3bc13.appspot.com/o/Screenshot_20240505_233108_Gallery-removebg-preview%201.png?alt=media&token=d20cb350-f89a-4b0e-876e-983db0ef7620"
+          href="https://firebasestorage.googleapis.com/v0/b/manager-project-3bc13.appspot.com/o/Screenshot%202024-09-29%20at%2021.33.45.png?alt=media&token=2790afde-e300-4702-8efd-88716a4f836b"
         />
         <title>HuuTai | Personal Portfolio</title>
       </head>
