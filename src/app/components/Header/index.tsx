@@ -1,5 +1,5 @@
 import Image from "next/image";
-import HeaderIcon from "../../public/assets/imgs/header-icon.png";
+import HeaderIcon from "../../../public/assets/imgs/header-icon.png";
 import ThemeToggleBtn from "../ToogleThem";
 
 export const HEIGHT_HEADER = "4rem";
