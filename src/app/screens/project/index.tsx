@@ -150,15 +150,17 @@ export const ProjectView = ({
               }}
               key={index}
               variants={item}
-              className="bg-white rounded-md p-4 card w-[28%] "
+              className="bg-white rounded-xl overflow-hidden p-4 card w-[28%] "
               whileHover={{ scale: 1.06 }}
             >
               <Image
+                lazyBoundary="100px"
+                objectFit="contain"
                 width={200}
                 height={100}
                 src={data.img}
                 alt={data.name}
-                className="w-full h-[200px] object-cover rounded-md"
+                className="w-full h-[200px] object-contain rounded-xl"
               />
               <h1 className="text-main font-semibold text-xl mt-2 overflow-hidden w-full truncate">
                 {data.name}
