@@ -58,6 +58,10 @@ function Home() {
         className="w-[50%] bg-gradient-to-r h-[2px] from-btn to-btn2"
       />
 
+      <motion.a href='https://drive.google.com/drive/my-drive?hl=vi'  className="underline italic text-2xl w-[50%] bg-gradient-to-r h-[2px] from-btn to-btn2">
+        My Bachelor's degree
+        </motion.a>
+
       <motion.div className="grid grid-cols-2 gap-10 mt-10">
         {Services.map((service, index) => (
           <motion.div
